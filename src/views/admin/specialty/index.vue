@@ -112,7 +112,7 @@
             title: '错误信息',
             message: '登录超时，请重新登录'
           })
-          this.$router.push({ path: this.redirect || '/login' })
+          this.$router.push({ path: '/login' })
         })
       },
       sizeChange(val) {
