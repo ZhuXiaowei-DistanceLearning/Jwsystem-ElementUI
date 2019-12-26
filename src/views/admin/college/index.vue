@@ -54,7 +54,7 @@
       <el-col :offset="10">
         <el-pagination
           :total="total"
-          :current-page="params.limit"
+          :current-page="params.offset"
           style="margin-top: 8px;"
           :page-sizes="[10, 20, 30, 50]"
           layout="total, prev, pager, next, sizes"
@@ -90,18 +90,7 @@
       }
     },
     created() {
-      service.get('/api/college/pageQuery', { params: this.params }).then(res => {
-        this.data = res.records
-        this.currentPage = res.current
-        this.loading = false
-        this.total = res.realTotal
-      }).catch(error => {
-        this.loading = false
-        this.$notify({
-          title: '错误信息',
-          message: '数据加载失败'
-        })
-      })
+      this.load()
     },
     methods: {
       load() {
@@ -114,8 +103,9 @@
           this.loading = false
           this.$notify({
             title: '错误信息',
-            message: '数据加载失败'
+            message: '登录超时，请重新登录'
           })
+          this.$router.push({ path: this.redirect || '/login' })
         })
       },
       sizeChange(val) {

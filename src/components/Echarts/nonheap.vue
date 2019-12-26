@@ -202,6 +202,7 @@
           this.dataNonHeap.push(res.nontotalMemory)
           this.time.push(this.dateTransfer(0))
           this.i++
+          // this.chart = echarts.init(document.getElementById("heap"), 'macarons')
           this.chart.setOption({
             xAxis: {
               data: this.time

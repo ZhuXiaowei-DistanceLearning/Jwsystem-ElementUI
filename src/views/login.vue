@@ -91,7 +91,7 @@
     },
     methods: {
       getCode() {
-        alert('aaa')
+        this.codeUrl = 'http://localhost:8080/kaptcha/create?timestamp=' + new Date().getTime()
       },
       handleLogin() {
         this.$refs.loginForm.validate(valid => {
@@ -107,9 +107,11 @@
               this.loading = false
               this.$router.push({ path: this.redirect || '/' })
             }).catch(() => {
+              this.codeUrl = 'http://localhost:8080/kaptcha/create?timestamp=' + new Date().getTime()
               this.loading = false
             })
           } else {
+            this.codeUrl = 'http://localhost:8080/kaptcha/create?timestamp=' + new Date().getTime()
             console.log('error submit!!')
             return false
           }

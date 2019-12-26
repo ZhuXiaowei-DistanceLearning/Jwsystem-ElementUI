@@ -1,5 +1,5 @@
 <template>
-  <div :class="className" :style="{height:height,width:width}"/>
+  <div :class="className" :style="{height:height,width:width}" id="heap"/>
 </template>
 
 <script>
@@ -202,6 +202,7 @@
           this.dataNonHeap.push(res.totalMemory)
           this.time.push(this.dateTransfer(0))
           this.i++
+          // this.chart = echarts.init(document.getElementById("heap"), 'macarons')
           this.chart.setOption({
             xAxis: {
               data: this.time

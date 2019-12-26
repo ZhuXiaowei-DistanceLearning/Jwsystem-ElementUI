@@ -1,129 +1,191 @@
 <template>
   <div class="app-container">
+    <!--工具栏-->
     <div class="head-container">
-      <div v-if="crud.props.searchToggle">
-        <el-input v-model="query.filter" clearable size="small" placeholder="全表模糊搜索" style="width: 200px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
-        <rrOperation :crud="crud" />
-      </div>
-      <crudOperation>
-        <el-button
-          slot="left"
-          class="filter-item"
-          type="danger"
-          icon="el-icon-delete"
-          size="mini"
-          :loading="delLoading"
-          :disabled="crud.selections.length === 0"
-          @click="doDelete(crud.selections)"
-        >
-          强退
-        </el-button>
-      </crudOperation>
+      <!-- 搜索 -->
+      <el-input v-model="params.keyword" clearable placeholder="输入搜索内容" style="width: 200px;" class="filter-item"
+                @keyup.enter.native="toQuery"/>
+      <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="toQuery">搜索</el-button>
+      <el-button class="filter-item" size="mini" type="primary" icon="el-icon-plus" @click="add">新增</el-button>
     </div>
+    <!--表单组件-->
+    <e-from ref="form" :is-add="isAdd" @close="load()"/>
     <!--表格渲染-->
-    <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
-      <el-table-column type="selection" width="55" />
-      <el-table-column v-if="columns.visible('userName')" prop="userName" label="用户名" />
-      <el-table-column v-if="columns.visible('nickName')" prop="nickName" label="用户昵称" />
-      <el-table-column v-if="columns.visible('job')" prop="job" label="岗位" />
-      <el-table-column v-if="columns.visible('ip')" prop="ip" label="登录IP" />
-      <el-table-column v-if="columns.visible('address')" :show-overflow-tooltip="true" prop="address" label="登录地点" />
-      <el-table-column v-if="columns.visible('browser')" prop="browser" label="浏览器" />
-      <el-table-column v-if="columns.visible('loginTime')" prop="loginTime" label="登录时间">
+    <el-table
+      v-loading="loading"
+      :data="data"
+      size="small"
+      style="width: 100%;"
+      stripe
+      empty-text="暂无数据"
+      highlight-current-row
+      current-row-key="id"
+    >
+      <el-table-column prop="id" label="编号"/>
+      <el-table-column prop="name" label="专业名称" width="200"/>
+      <el-table-column prop="time" label="学制" width="100"/>
+      <el-table-column prop="category" label="学位授予门类" width="100"/>
+      <el-table-column prop="college" label="学院名称">
         <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.loginTime) }}</span>
+          {{scope.row.cname}}
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="100px" fixed="right">
+      <el-table-column prop="status" label="状态" show-overflow-tooltip>
         <template slot-scope="scope">
-          <el-popover
-            :ref="scope.$index"
-            v-permission="['admin']"
-            placement="top"
-            width="180"
-          >
-            <p>确定强制退出该用户吗？</p>
-            <div style="text-align: right; margin: 0">
-              <el-button size="mini" type="text" @click="$refs[scope.$index].doClose()">取消</el-button>
-              <el-button :loading="delLoading" type="primary" size="mini" @click="delMethod(scope.row.key, scope.$index)">确定</el-button>
-            </div>
-            <el-button slot="reference" size="mini" type="text">强退</el-button>
-          </el-popover>
+          <el-tag
+            :type="scope.row.status==1?'success':'danger'"
+            disable-transitions> {{scope.row.status==1?'正在使用':'已作废'}}
+          </el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" width="200px"
+                       align="center">
+        <template slot-scope="scope">
+          <el-row>
+            <el-col :span="10">
+              <el-button size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)">编辑
+              </el-button>
+            </el-col>
+            <el-col :span="4"></el-col>
+            <el-col :span="10">
+              <el-button size="mini" type="danger" icon="el-icon-delete"
+                         @click="subDelete(scope.row.id,scope.row.status)">{{scope.row.status==1?'作废':'恢复'}}
+              </el-button>
+            </el-col>
+          </el-row>
         </template>
       </el-table-column>
     </el-table>
     <!--分页组件-->
-    <pagination />
+    <el-row>
+      <el-col :offset="10">
+        <el-pagination
+          :total="total"
+          :current-page="params.offset"
+          style="margin-top: 8px;"
+          :page-sizes="[10, 20, 30, 50]"
+          layout="total, prev, pager, next, sizes"
+          @size-change="sizeChange"
+          @current-change="pageChange"/>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
-import { del } from '@/api/monitor/online'
-import CRUD, { presenter, header, crud } from '@crud/crud'
-import rrOperation from '@crud/RR.operation'
-import crudOperation from '@crud/CRUD.operation'
-import pagination from '@crud/Pagination'
+  import service from '../../../utils/request'
+  import eFrom from './form'
+  import { del, redo } from '@/api/admin/specialty/specialty'
 
-// crud交由presenter持有
-const defaultCrud = CRUD({ url: 'auth/online', title: '在线用户' })
-export default {
-  name: 'OnlineUser',
-  components: { pagination, crudOperation, rrOperation },
-  mixins: [presenter(defaultCrud), header(), crud()],
-  data() {
-    return {
-      delLoading: false,
-      permission: {}
-    }
-  },
-  created() {
-    this.crud.msg.del = '强退成功！'
-    this.crud.optShow = {
-      add: false,
-      edit: false,
-      del: false,
-      download: true
-    }
-  },
-  methods: {
-    // 获取数据前设置好接口地址
-    beforeInit() {
-      this.url = 'auth/online'
-      return true
+  export default {
+    components: {
+      eFrom
     },
-    doDelete(datas) {
-      this.$confirm(`确认强退选中的${datas.length}个用户?`, '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.delMethod(datas)
-      }).catch(() => {})
+    data() {
+      return {
+        loading: true,
+        delLoading: false,
+        total: 0,
+        isAdd: false,
+        params: {
+          offset: 1,
+          limit: 10,
+          keyword: null,
+          status: null
+        },
+        data: null
+      }
     },
-    // 踢出用户
-    delMethod(key, index) {
-      const ids = []
-      if (key instanceof Array) {
-        key.forEach(val => {
-          ids.push(val.key)
+    created() {
+      this.load()
+    },
+    methods: {
+      load() {
+        service.get('/api/specialty/pageQuery', { params: this.params }).then(res => {
+          this.data = res.records
+          this.loading = false
+          this.currentPage = res.current
+          this.total = res.realTotal
+        }).catch(error => {
+          this.loading = false
+          this.$notify({
+            title: '错误信息',
+            message: '登录超时，请重新登录'
+          })
+          this.$router.push({ path: this.redirect || '/login' })
         })
-      } else ids.push(key)
-      this.delLoading = true
-      del(ids).then(() => {
-        this.delLoading = false
-        if (this.$refs[index]) {
-          this.$refs[index].doClose()
+      },
+      sizeChange(val) {
+        this.params.limit = val
+        this.load()
+      },
+      pageChange(val) {
+        this.params.offset = val
+        this.load()
+      },
+      subDelete(id, status) {
+        this.delLoading = true
+        this.$confirm('确定进行此操作吗？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          if (status == 1) {
+            del(id).then(res => {
+              this.delLoading = false
+              this.$notify({
+                title: '成功',
+                type: 'success',
+                duration: 2500
+              })
+              this.load()
+            }).catch(err => {
+              this.delLoading = false
+              console.log(err.response.data.message)
+            })
+          } else {
+            redo(id).then(res => {
+              this.delLoading = false
+              this.$notify({
+                title: '成功',
+                type: 'success',
+                duration: 2500
+              })
+              this.load()
+            }).catch(err => {
+              this.delLoading = false
+              console.log(err.response.data.message)
+            })
+          }
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          })
+        })
+      },
+      add() {
+        this.isAdd = true
+        this.$refs.form.dialog = true
+      },
+      edit(data) {
+        this.isAdd = false
+        const _this = this.$refs.form
+        _this.form = {
+          id: data.id,
+          name: data.name
         }
-        this.crud.dleChangePage(1)
-        this.crud.delSuccessNotify()
-        this.crud.toQuery()
-      }).catch(() => {
-        this.delLoading = false
-        if (this.$refs[index]) {
-          this.$refs[index].doClose()
-        }
-      })
+        _this.dialog = true
+      },
+      toQuery() {
+        this.load()
+      }
     }
   }
-}
 </script>
+
+<style scoped>
+  .status {
+    color: green;
+  }
+</style>
