@@ -105,7 +105,7 @@
       }
     },
     created() {
-      this.load()
+      // this.load()
     },
     methods: {
       load() {
