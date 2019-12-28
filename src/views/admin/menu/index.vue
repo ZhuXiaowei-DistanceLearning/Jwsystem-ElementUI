@@ -108,12 +108,23 @@
         this.isAdd = true
         this.$refs.form.dialog = true
       },
-      edit(data) {
+      edit(node,data) {
         this.isAdd = false
         const _this = this.$refs.form
         _this.form = {
           id: data.id,
-          name: data.name
+          name:  data.name,
+          iframe:  data.iframe,
+          component:  data.component,
+          pid:  data.pid,
+          sort:  data.sort,
+          icon:  data.icon,
+          path:  data.path,
+          cache:  data.cache,
+          hidden:  data.hidden,
+          componentName:  data.componentName,
+          permission:  data.permission,
+          type:  data.type
         }
         _this.dialog = true
       },

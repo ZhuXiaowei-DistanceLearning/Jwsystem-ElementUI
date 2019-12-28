@@ -1,33 +1,15 @@
 import request from '@/utils/request'
 
-export function listajaxCollege() {
+export function listajaxMenu() {
   return request({
-    url: 'api/college/listajax',
-    method: 'get'
-  })
-}
-
-export function listajaxSpecialty(collegeId) {
-  return request({
-    url: 'api/specialty/listajax',
-    method: 'get',
-    params: {
-      'status': '1',
-      'collegeId': collegeId
-    }
-  })
-}
-
-export function listajaxGrade() {
-  return request({
-    url: 'api/grade/listajax',
+    url: 'api/menu/listajax',
     method: 'get'
   })
 }
 
 export function add(data) {
   return request({
-    url: 'api/classes/add',
+    url: 'api/menu/add',
     method: 'post',
     data
   })
@@ -35,7 +17,7 @@ export function add(data) {
 
 export function del(id) {
   return request({
-    url: 'api/classes/deleteCollege',
+    url: 'api/menu/delete',
     method: 'delete',
     params: {
       id: id
@@ -45,10 +27,10 @@ export function del(id) {
 
 export function edit(data) {
   return request({
-    url: 'api/classes/editCollege',
-    method: 'post',
+    url: 'api/menu/edit',
+    method: 'put',
     data
   })
 }
 
-export default { add, edit, del, listajaxCollege, listajaxSpecialty, listajaxGrade }
+export default { add, edit, del, listajaxMenu }

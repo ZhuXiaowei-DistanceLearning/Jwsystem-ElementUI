@@ -3,9 +3,16 @@
              :title="isAdd ? '新增' : '编辑'" width="500px">
     <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
       <el-form-item label="上级菜单">
-        <el-input v-model="form.pid" style="width: 370px;"/>
+        <el-select v-model="form.pid" placeholder="请选择">
+          <el-option
+            v-for="item in menu"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id">
+          </el-option>
+        </el-select>
       </el-form-item>
-      <el-form-item label="权限名称">
+      <el-form-item label="名称" required prop="name">
         <el-input v-model="form.name" style="width: 370px;"/>
       </el-form-item>
       <el-form-item label="组件地址">
@@ -20,20 +27,35 @@
       <el-form-item label="图标">
         <el-input v-model="form.icon" style="width: 370px;"/>
       </el-form-item>
-      <el-form-item label="链接地址">
+      <el-form-item label="链接地址" required prop="path">
         <el-input v-model="form.path" style="width: 370px;"/>
       </el-form-item>
-      <el-form-item label="权限名称">
+      <el-form-item label="权限">
         <el-input v-model="form.permission" style="width: 370px;"/>
       </el-form-item>
-      <el-form-item label="是否为外链">
-        <el-input v-model="form.iFrame" style="width: 370px;"/>
+      <el-form-item label="是否为外链" label-width="auto">
+        <el-radio-group v-model="form.iframe">
+          <el-radio :label="true">是</el-radio>
+          <el-radio :label="false">否</el-radio>
+        </el-radio-group>
       </el-form-item>
       <el-form-item label="是否隐藏">
-        <el-input v-model="form.hidden" style="width: 370px;"/>
+        <el-radio-group v-model="form.hidden">
+          <el-radio :label="true">是</el-radio>
+          <el-radio :label="false">否</el-radio>
+        </el-radio-group>
       </el-form-item>
       <el-form-item label="是否缓存">
-        <el-input v-model="form.cache" style="width: 370px;"/>
+        <el-radio-group v-model="form.cache">
+          <el-radio :label="true">是</el-radio>
+          <el-radio :label="false">否</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="是否为目录" label-width="auto">
+        <el-radio-group v-model="form.type">
+          <el-radio :label="1">是</el-radio>
+          <el-radio :label="0">否</el-radio>
+        </el-radio-group>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -44,7 +66,7 @@
 </template>
 
 <script>
-  import { add, edit } from '@/api/admin/menu/menu'
+  import { add, edit,listajaxMenu } from '@/api/admin/menu/menu'
 
   export default {
     props: {
@@ -55,24 +77,29 @@
     },
     data() {
       return {
-        loading: false, dialog: false,
+        loading: false, dialog: false,menu:[],
         form: {
           id: '',
           name: '',
-          iFrame: '',
+          iframe: false,
           component: '',
-          pid: '',
+          pid: null,
           sort: '',
           icon: '',
           path: '',
-          cache: '',
-          hidden: '',
+          cache: false,
+          hidden: false,
           componentName: '',
           permission: '',
-          type: ''
+          type: 0
         },
         rules: {}
       }
+    },
+    created(){
+      listajaxMenu().then(res =>{
+        this.menu = res
+      })
     },
     methods: {
       cancel() {
