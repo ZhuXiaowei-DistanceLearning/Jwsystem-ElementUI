@@ -8,27 +8,14 @@
     width="500px"
   >
     <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
+      <el-form-item label="名称" required prop="name">
+        <el-input v-model="form.name" style="width: 370px;" />
+      </el-form-item>
       <el-form-item label="编号">
-        <el-input v-model="form.id" style="width: 350px;" />
+        <el-input v-model="form.code" style="width: 370px;" />
       </el-form-item>
-      <el-form-item label="学院名称">
-        <el-input v-model="form.name" style="width: 350px;" />
-      </el-form-item>
-      <el-form-item label="学制">
-        <el-input v-model="form.time" style="width: 350px;" />
-      </el-form-item>
-      <el-form-item label="学位授予名称">
-        <el-input v-model="form.category" style="width: 350px;" />
-      </el-form-item>
-      <el-form-item label="学院名称">
-        <el-select v-model="form.collegeId" placeholder="请选择">
-          <el-option
-            v-for="item in college"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
-        </el-select>
+      <el-form-item label="描述">
+        <el-input v-model="form.description" style="width: 370px;" />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -39,7 +26,7 @@
 </template>
 
 <script>
-import { listajax, add, edit } from '@/api/admin/specialty/specialty'
+import { add, edit } from '@/api/admin/role/role'
 
 export default {
   props: {
@@ -50,22 +37,15 @@ export default {
   },
   data() {
     return {
-      loading: false, dialog: false,
+      loading: false, dialog: false, menu: [],
       form: {
         id: '',
         name: '',
-        time: '',
-        category: '',
-        collegeId: ''
+        code: '',
+        description: ''
       },
-      college: [],
       rules: {}
     }
-  },
-  created() {
-    listajax().then(res => {
-      this.college = res
-    })
   },
   methods: {
     cancel() {
@@ -88,7 +68,6 @@ export default {
           duration: 2500
         })
         this.loading = false
-        // this.$parent.load()
         this.$emit('close')
       }).catch(err => {
         this.loading = false
@@ -117,9 +96,8 @@ export default {
       this.form = {
         id: '',
         name: '',
-        time: '',
-        category: '',
-        collegeId: ''
+        code: '',
+        description: ''
       }
     }
   }

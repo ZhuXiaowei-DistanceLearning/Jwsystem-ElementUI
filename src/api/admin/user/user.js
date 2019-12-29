@@ -1,15 +1,15 @@
 import request from '@/utils/request'
 
-export function listajaxMenu() {
+export function listajax() {
   return request({
-    url: 'api/menu/listajax',
+    url: 'api/college/listajax',
     method: 'get'
   })
 }
 
 export function add(data) {
   return request({
-    url: 'api/menu/add',
+    url: 'api/user/add',
     method: 'post',
     data
   })
@@ -17,20 +17,20 @@ export function add(data) {
 
 export function del(id) {
   return request({
-    url: 'api/menu/delete',
+    url: 'api/user/delete',
     method: 'delete',
     params: {
-      menuId: id
+      id: id
     }
   })
 }
 
 export function edit(data) {
   return request({
-    url: 'api/menu/edit',
+    url: 'api/user/edit',
     method: 'put',
     data
   })
 }
 
-export default { add, edit, del, listajaxMenu }
+export default { add, edit, del, listajax }

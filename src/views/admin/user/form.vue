@@ -8,17 +8,14 @@
     width="500px"
   >
     <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
-      <el-form-item label="编号">
-        <el-input v-model="form.id" style="width: 350px;" />
+      <el-form-item label="用户名">
+        <el-input v-model="form.username" style="width: 350px;" />
       </el-form-item>
-      <el-form-item label="学院名称">
-        <el-input v-model="form.name" style="width: 350px;" />
+      <el-form-item label="密码">
+        <el-input v-model="form.password" style="width: 350px;" />
       </el-form-item>
-      <el-form-item label="学制">
-        <el-input v-model="form.time" style="width: 350px;" />
-      </el-form-item>
-      <el-form-item label="学位授予名称">
-        <el-input v-model="form.category" style="width: 350px;" />
+      <el-form-item label="权限">
+        <el-input v-model="form.qx" style="width: 350px;" />
       </el-form-item>
       <el-form-item label="学院名称">
         <el-select v-model="form.collegeId" placeholder="请选择">
@@ -39,7 +36,7 @@
 </template>
 
 <script>
-import { listajax, add, edit } from '@/api/admin/specialty/specialty'
+import { listajax, add, edit } from '@/api/admin/user/user'
 
 export default {
   props: {
@@ -54,9 +51,9 @@ export default {
       form: {
         id: '',
         name: '',
-        time: '',
-        category: '',
-        collegeId: ''
+        qx: '',
+        collegeId: '',
+        status: '1'
       },
       college: [],
       rules: {}
@@ -88,7 +85,6 @@ export default {
           duration: 2500
         })
         this.loading = false
-        // this.$parent.load()
         this.$emit('close')
       }).catch(err => {
         this.loading = false
@@ -117,9 +113,9 @@ export default {
       this.form = {
         id: '',
         name: '',
-        time: '',
-        category: '',
-        collegeId: ''
+        qx: '',
+        collegeId: '',
+        status: ''
       }
     }
   }

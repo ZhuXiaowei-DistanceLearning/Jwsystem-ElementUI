@@ -1,15 +1,15 @@
 import request from '@/utils/request'
 
-export function listajaxMenu() {
+export function findMenuByRole() {
   return request({
-    url: 'api/menu/listajax',
+    url: 'api/role/findMenuByRole',
     method: 'get'
   })
 }
 
 export function add(data) {
   return request({
-    url: 'api/menu/add',
+    url: 'api/role/add',
     method: 'post',
     data
   })
@@ -17,20 +17,28 @@ export function add(data) {
 
 export function del(id) {
   return request({
-    url: 'api/menu/delete',
+    url: 'api/role/delete',
     method: 'delete',
     params: {
-      menuId: id
+      roleId: id
     }
   })
 }
 
 export function edit(data) {
   return request({
-    url: 'api/menu/edit',
+    url: 'api/role/edit',
     method: 'put',
     data
   })
 }
 
-export default { add, edit, del, listajaxMenu }
+export function saveMenu(data) {
+  return request({
+    url: 'api/role/saveMenu',
+    method: 'post',
+    data
+  })
+}
+
+export default { add, edit, del, saveMenu }
