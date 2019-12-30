@@ -14,12 +14,13 @@
           <el-col :span="12">
             <div style="margin: 10px">
               选择学期:
-              <el-select v-model="params.teamId" placeholder="请选择">
+              <el-select v-model="params.teamId" placeholder="请选择" @change="handleSelectionChange">
                 <el-option
                   v-for="item in team"
                   :key="item.id"
                   :label="item.name"
-                  :value="item.id">
+                  :value="item.id"
+                  >
                 </el-option>
               </el-select>
             </div>
@@ -47,7 +48,7 @@
             <td width="124" height="10" align="center"></td>
             <td width="124" height="10" align="center"></td>
           </tr>
-          <tr>
+          <tr ref="one_two">
             <td rowspan="4" align="center">上午</td>
             <td align="center">第<br/>一<br/>节
             </td>
@@ -72,7 +73,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr ref="three_four">
             <td width="70" height="28" align="center">第<br/>三<br/>节
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
@@ -96,7 +97,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr ref="five_six">
             <td rowspan="4" align="center">下午</td>
             <td width="70" height="28" align="center">第<br/>五<br/>节
             </td>
@@ -119,7 +120,7 @@
             <td width="70" height="28" align="center">第<br/>六<br/>节
             </td>
           </tr>
-          <tr>
+          <tr ref="seven_eight">
             <td width="70" height="28" align="center">第<br/>七<br/>节
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
@@ -141,7 +142,7 @@
             <td width="70" height="28" align="center">第<br/>八<br/>节
             </td>
           </tr>
-          <tr>
+          <tr ref="ten_eleven">
             <td rowspan="2" align="center">晚上</td>
             <td width="70" height="28" align="center">第<br/>九<br/>节
             </td>
@@ -174,7 +175,7 @@
 
 <script>
   import service from '../../../utils/request'
-  import { del, listajaxSection, listajaxTeam, listajaxWeek } from '@/api/teacher/course/course'
+  import {del, listajaxSection, listajaxTeam, listajaxWeek} from '@/api/teacher/course/course'
 
   export default {
     data() {
@@ -191,13 +192,9 @@
         classesId: null,
         classname: null,
         params: {
-          offset: 1,
-          limit: 10,
-          keyword: null,
           teamId: null,
           weekId: null,
           sectionId: null,
-          status: null
         },
         data: null
       }
@@ -215,19 +212,30 @@
       this.load()
     },
     methods: {
+      Views(){
+        for (let i of this.data) {
+          switch(i.sse){
+            case "1-2节":
+              console.log(this.$refs.one_two)
+              console.log(this.$refs.one_two.childred)
+              switch (i.sw) {
+                case "周一":
+                  break;
+              }
+              break;
+          }
+        }
+      },
       load() {
-        service.get('/api/course/findCourseByteacherId', { params: this.params }).then(res => {
-          this.data = res.records
-          this.loading = false
-          this.currentPage = res.current
-          this.total = res.realTotal
+        service.get('/api/teacher/findSchedule', {params: this.params}).then(res => {
+          this.data = res
         }).catch(error => {
           this.loading = false
           this.$notify({
             title: '错误信息',
             message: '登录超时，请重新登录'
           })
-          this.$router.push({ path: '/login' })
+          this.$router.push({path: '/login'})
         })
       },
       sizeChange(val) {
@@ -262,20 +270,10 @@
       StudentInfo() {
         this.$refs.studentForm.dialog = true
       },
-      handleSelectionChange(val, row) {
-        if (val.length == 0) {
-          this.classesId = null
-          this.classname = null
-        } else if (val.length > 1) {
-          this.$refs.table.clearSelection()
-          this.$refs.table.toggleRowSelection(row)
-          val.splice(0, val.length - 1)
-          this.classesId = val[0].id
-          this.classname = val[0].classname
-        } else {
-          this.classesId = val[0].id
-          this.classname = val[0].classname
-        }
+      handleSelectionChange(val) {
+        this.params.teamId = val
+        this.load()
+        this.Views()
       }
     }
   }

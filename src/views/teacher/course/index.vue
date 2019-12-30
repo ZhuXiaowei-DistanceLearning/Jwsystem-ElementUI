@@ -67,21 +67,21 @@
       <el-table-column
         type="selection"
         width="55"/>
-      <el-table-column prop="name" label="课程名称" width="200"/>
-      <el-table-column prop="classroom" label="上课教室" width="80"/>
+      <el-table-column prop="name" label="课程名称" min-width="200"/>
+      <el-table-column prop="classroom" label="上课教室"/>
       <el-table-column prop="people" label="人数" show-overflow-tooltip width="60">
       </el-table-column>
-      <el-table-column prop="sname" label="上课时间" show-overflow-tooltip width="100">
+      <el-table-column prop="sname" label="上课时间" show-overflow-tooltip min-width="100">
         <template slot-scope="scope">
           {{scope.row.sw}}&nbsp; {{scope.row.sse}}
         </template>
       </el-table-column>
-      <el-table-column prop="wname" label="上课周数" show-overflow-tooltip width="120"/>
-      <el-table-column prop="nname" label="课程性质" show-overflow-tooltip width="100"/>
+      <el-table-column prop="wname" label="上课周数" show-overflow-tooltip min-width="120"/>
+      <el-table-column prop="nname" label="课程性质" show-overflow-tooltip min-width="100"/>
       <el-table-column prop="totalTime" label="总学时" show-overflow-tooltip width="60"/>
-      <el-table-column prop="ename" label="考核方式" show-overflow-tooltip width="80"/>
-      <el-table-column prop="tname" label="开课学期" show-overflow-tooltip width="100"/>
-      <el-table-column prop="status" label="状态" show-overflow-tooltip width="80">
+      <el-table-column prop="ename" label="考核方式" show-overflow-tooltip min-width="80"/>
+      <el-table-column prop="tname" label="开课学期" show-overflow-tooltip min-width="100"/>
+      <el-table-column prop="status" label="状态" show-overflow-tooltip min-width="80">
         <template slot-scope="scope">
           <el-tag
             :type="scope.row.status==1?'success':'danger'"
