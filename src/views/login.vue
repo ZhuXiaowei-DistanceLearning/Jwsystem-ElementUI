@@ -70,7 +70,7 @@
           username: '1',
           password: '11',
           code: '',
-          RadioButtonList1: '管理员'
+          RadioButtonList1: '教师'
         },
         loginRules: {
           username: [{ required: true, trigger: 'blur', message: '用户名不能为空' }],

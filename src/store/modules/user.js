@@ -59,9 +59,11 @@ const user = {
     LogOut({ commit }) {
       return new Promise((resolve, reject) => {
         logout().then(res => {
+          console.log("success")
           logOut(commit)
           resolve()
         }).catch(error => {
+          console.log("error")
           logOut(commit)
           reject(error)
         })
