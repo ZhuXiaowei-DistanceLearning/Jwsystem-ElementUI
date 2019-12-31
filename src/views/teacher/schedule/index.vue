@@ -20,7 +20,7 @@
                   :key="item.id"
                   :label="item.name"
                   :value="item.id"
-                  >
+                >
                 </el-option>
               </el-select>
             </div>
@@ -48,23 +48,51 @@
             <td width="124" height="10" align="center"></td>
             <td width="124" height="10" align="center"></td>
           </tr>
-          <tr ref="one_two">
+          <tr ref="one_two" id="one_two">
             <td rowspan="4" align="center">上午</td>
             <td align="center">第<br/>一<br/>节
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[0][0]==null?"":data[0][0]["courseName"]}}</p>
+              <p>{{data[0][0]==null?"":data[0][0]["week"]}}</p>
+              <p>{{data[0][0]==null?"":data[0][0]["teacherName"]}}</p>
+              <p>{{data[0][0]==null?"":data[0][0]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[0][1]==null?"":data[0][1]["courseName"]}}</p>
+              <p>{{data[0][1]==null?"":data[0][1]["week"]}}</p>
+              <p>{{data[0][1]==null?"":data[0][1]["teacherName"]}}</p>
+              <p>{{data[0][1]==null?"":data[0][1]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[0][2]==null?"":data[0][2]["courseName"]}}</p>
+              <p>{{data[0][2]==null?"":data[0][2]["week"]}}</p>
+              <p>{{data[0][2]==null?"":data[0][2]["teacherName"]}}</p>
+              <p>{{data[0][2]==null?"":data[0][2]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[0][3]==null?"":data[0][3]["courseName"]}}</p>
+              <p>{{data[0][3]==null?"":data[0][3]["week"]}}</p>
+              <p>{{data[0][3]==null?"":data[0][3]["teacherName"]}}</p>
+              <p>{{data[0][3]==null?"":data[0][3]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[0][4]==null?"":data[0][4]["courseName"]}}</p>
+              <p>{{data[0][4]==null?"":data[0][4]["week"]}}</p>
+              <p>{{data[0][4]==null?"":data[0][4]["teacherName"]}}</p>
+              <p>{{data[0][4]==null?"":data[0][4]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[0][5]==null?"":data[0][5]["courseName"]}}</p>
+              <p>{{data[0][5]==null?"":data[0][5]["week"]}}</p>
+              <p>{{data[0][5]==null?"":data[0][5]["teacherName"]}}</p>
+              <p>{{data[0][5]==null?"":data[0][5]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[0][6]==null?"":data[0][6]["courseName"]}}</p>
+              <p>{{data[0][6]==null?"":data[0][6]["week"]}}</p>
+              <p>{{data[0][6]==null?"":data[0][6]["teacherName"]}}</p>
+              <p>{{data[0][6]==null?"":data[0][6]["classroom"]}}</p>
             </td>
           </tr>
 
@@ -73,22 +101,50 @@
             </td>
           </tr>
 
-          <tr ref="three_four">
+          <tr ref="three_four" id="three_four">
             <td width="70" height="28" align="center">第<br/>三<br/>节
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[1][0]==null?"":data[1][0]["courseName"]}}</p>
+              <p>{{data[1][0]==null?"":data[1][0]["week"]}}</p>
+              <p>{{data[1][0]==null?"":data[1][0]["teacherName"]}}</p>
+              <p>{{data[1][0]==null?"":data[1][0]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[1][1]==null?"":data[1][1]["courseName"]}}</p>
+              <p>{{data[1][1]==null?"":data[1][1]["week"]}}</p>
+              <p>{{data[1][1]==null?"":data[1][1]["teacherName"]}}</p>
+              <p>{{data[1][1]==null?"":data[1][1]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[1][2]==null?"":data[1][2]["courseName"]}}</p>
+              <p>{{data[1][2]==null?"":data[1][2]["week"]}}</p>
+              <p>{{data[1][2]==null?"":data[1][2]["teacherName"]}}</p>
+              <p>{{data[1][2]==null?"":data[1][2]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[1][3]==null?"":data[1][3]["courseName"]}}</p>
+              <p>{{data[1][3]==null?"":data[1][3]["week"]}}</p>
+              <p>{{data[1][3]==null?"":data[1][3]["teacherName"]}}</p>
+              <p>{{data[1][3]==null?"":data[1][3]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[1][4]==null?"":data[1][4]["courseName"]}}</p>
+              <p>{{data[1][4]==null?"":data[1][4]["week"]}}</p>
+              <p>{{data[1][4]==null?"":data[1][4]["teacherName"]}}</p>
+              <p>{{data[1][4]==null?"":data[1][4]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[1][5]==null?"":data[1][5]["courseName"]}}</p>
+              <p>{{data[1][5]==null?"":data[1][5]["week"]}}</p>
+              <p>{{data[1][5]==null?"":data[1][5]["teacherName"]}}</p>
+              <p>{{data[1][5]==null?"":data[1][5]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[1][6]==null?"":data[1][6]["courseName"]}}</p>
+              <p>{{data[1][6]==null?"":data[1][6]["week"]}}</p>
+              <p>{{data[1][6]==null?"":data[1][6]["teacherName"]}}</p>
+              <p>{{data[1][6]==null?"":data[1][6]["classroom"]}}</p>
             </td>
           </tr>
 
@@ -97,67 +153,152 @@
             </td>
           </tr>
 
-          <tr ref="five_six">
+          <tr ref="five_six" id="five_six">
             <td rowspan="4" align="center">下午</td>
             <td width="70" height="28" align="center">第<br/>五<br/>节
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[2][0]==null?"":data[2][0]["courseName"]}}</p>
+              <p>{{data[2][0]==null?"":data[2][0]["week"]}}</p>
+              <p>{{data[2][0]==null?"":data[2][0]["teacherName"]}}</p>
+              <p>{{data[2][0]==null?"":data[2][0]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[2][1]==null?"":data[2][1]["courseName"]}}</p>
+              <p>{{data[2][1]==null?"":data[2][1]["week"]}}</p>
+              <p>{{data[2][1]==null?"":data[2][1]["teacherName"]}}</p>
+              <p>{{data[2][1]==null?"":data[2][1]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[2][2]==null?"":data[2][2]["courseName"]}}</p>
+              <p>{{data[2][2]==null?"":data[2][2]["week"]}}</p>
+              <p>{{data[2][2]==null?"":data[2][2]["teacherName"]}}</p>
+              <p>{{data[2][2]==null?"":data[2][2]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[2][3]==null?"":data[2][3]["courseName"]}}</p>
+              <p>{{data[2][3]==null?"":data[2][3]["week"]}}</p>
+              <p>{{data[2][3]==null?"":data[2][3]["teacherName"]}}</p>
+              <p>{{data[2][3]==null?"":data[2][3]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[2][4]==null?"":data[2][4]["courseName"]}}</p>
+              <p>{{data[2][4]==null?"":data[2][4]["week"]}}</p>
+              <p>{{data[2][4]==null?"":data[2][4]["teacherName"]}}</p>
+              <p>{{data[2][4]==null?"":data[2][4]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[2][5]==null?"":data[2][5]["courseName"]}}</p>
+              <p>{{data[2][5]==null?"":data[2][5]["week"]}}</p>
+              <p>{{data[2][5]==null?"":data[2][5]["teacherName"]}}</p>
+              <p>{{data[2][5]==null?"":data[2][5]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[2][6]==null?"":data[2][6]["courseName"]}}</p>
+              <p>{{data[2][6]==null?"":data[2][6]["week"]}}</p>
+              <p>{{data[2][6]==null?"":data[2][6]["teacherName"]}}</p>
+              <p>{{data[2][6]==null?"":data[2][6]["classroom"]}}</p>
             </td>
           </tr>
           <tr>
             <td width="70" height="28" align="center">第<br/>六<br/>节
             </td>
           </tr>
-          <tr ref="seven_eight">
+          <tr ref="seven_eight" id="seven_eight">
             <td width="70" height="28" align="center">第<br/>七<br/>节
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[3][0]==null?"":data[3][0]["courseName"]}}</p>
+              <p>{{data[3][0]==null?"":data[3][0]["week"]}}</p>
+              <p>{{data[3][0]==null?"":data[3][0]["teacherName"]}}</p>
+              <p>{{data[3][0]==null?"":data[3][0]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[3][1]==null?"":data[3][1]["courseName"]}}</p>
+              <p>{{data[3][1]==null?"":data[3][1]["week"]}}</p>
+              <p>{{data[3][1]==null?"":data[3][1]["teacherName"]}}</p>
+              <p>{{data[3][1]==null?"":data[3][1]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[3][2]==null?"":data[3][2]["courseName"]}}</p>
+              <p>{{data[3][2]==null?"":data[3][2]["week"]}}</p>
+              <p>{{data[3][2]==null?"":data[3][2]["teacherName"]}}</p>
+              <p>{{data[3][2]==null?"":data[3][2]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[3][3]==null?"":data[3][3]["courseName"]}}</p>
+              <p>{{data[3][3]==null?"":data[3][3]["week"]}}</p>
+              <p>{{data[3][3]==null?"":data[3][3]["teacherName"]}}</p>
+              <p>{{data[3][3]==null?"":data[3][3]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[3][4]==null?"":data[3][4]["courseName"]}}</p>
+              <p>{{data[3][4]==null?"":data[3][4]["week"]}}</p>
+              <p>{{data[3][4]==null?"":data[3][4]["teacherName"]}}</p>
+              <p>{{data[3][4]==null?"":data[3][4]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[3][5]==null?"":data[3][5]["courseName"]}}</p>
+              <p>{{data[3][5]==null?"":data[3][5]["week"]}}</p>
+              <p>{{data[3][5]==null?"":data[3][5]["teacherName"]}}</p>
+              <p>{{data[3][5]==null?"":data[3][5]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[3][6]==null?"":data[3][6]["courseName"]}}</p>
+              <p>{{data[3][6]==null?"":data[3][6]["week"]}}</p>
+              <p>{{data[3][6]==null?"":data[3][6]["teacherName"]}}</p>
+              <p>{{data[3][6]==null?"":data[3][6]["classroom"]}}</p>
             </td>
           </tr>
           <tr>
             <td width="70" height="28" align="center">第<br/>八<br/>节
             </td>
           </tr>
-          <tr ref="ten_eleven">
+          <tr ref="night_ten" id="night_ten">
             <td rowspan="2" align="center">晚上</td>
             <td width="70" height="28" align="center">第<br/>九<br/>节
             </td>
-            <td width="123" align="center" valign="top" rowspan="2">
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[4][0]==null?"":data[4][0]["courseName"]}}</p>
+              <p>{{data[4][0]==null?"":data[4][0]["week"]}}</p>
+              <p>{{data[4][0]==null?"":data[4][0]["teacherName"]}}</p>
+              <p>{{data[4][0]==null?"":data[4][0]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[4][1]==null?"":data[4][1]["courseName"]}}</p>
+              <p>{{data[4][1]==null?"":data[4][1]["week"]}}</p>
+              <p>{{data[4][1]==null?"":data[4][1]["teacherName"]}}</p>
+              <p>{{data[4][1]==null?"":data[4][1]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[4][2]==null?"":data[4][2]["courseName"]}}</p>
+              <p>{{data[4][2]==null?"":data[4][2]["week"]}}</p>
+              <p>{{data[4][2]==null?"":data[4][2]["teacherName"]}}</p>
+              <p>{{data[4][2]==null?"":data[4][2]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[4][3]==null?"":data[4][3]["courseName"]}}</p>
+              <p>{{data[4][3]==null?"":data[4][3]["week"]}}</p>
+              <p>{{data[4][3]==null?"":data[4][3]["teacherName"]}}</p>
+              <p>{{data[4][3]==null?"":data[4][3]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[4][4]==null?"":data[4][4]["courseName"]}}</p>
+              <p>{{data[4][4]==null?"":data[4][4]["week"]}}</p>
+              <p>{{data[4][4]==null?"":data[4][4]["teacherName"]}}</p>
+              <p>{{data[4][4]==null?"":data[4][4]["classroom"]}}</p>
             </td>
             <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[4][5]==null?"":data[4][5]["courseName"]}}</p>
+              <p>{{data[4][5]==null?"":data[4][5]["week"]}}</p>
+              <p>{{data[4][5]==null?"":data[4][5]["teacherName"]}}</p>
+              <p>{{data[4][5]==null?"":data[4][5]["classroom"]}}</p>
+            </td>
+            <td width="123" height="28" align="center" valign="top" rowspan="2">
+              <p>{{data[4][6]==null?"":data[4][6]["courseName"]}}</p>
+              <p>{{data[4][6]==null?"":data[4][6]["week"]}}</p>
+              <p>{{data[4][6]==null?"":data[4][6]["teacherName"]}}</p>
+              <p>{{data[4][6]==null?"":data[4][6]["classroom"]}}</p>
             </td>
           </tr>
           <tr>
@@ -175,7 +316,7 @@
 
 <script>
   import service from '../../../utils/request'
-  import {del, listajaxSection, listajaxTeam, listajaxWeek} from '@/api/teacher/course/course'
+  import { del, listajaxSection, listajaxTeam, listajaxWeek } from '@/api/teacher/course/course'
 
   export default {
     data() {
@@ -194,12 +335,16 @@
         params: {
           teamId: null,
           weekId: null,
-          sectionId: null,
+          sectionId: null
         },
-        data: null
+        data: null,
+        pageData: new Array(5)
       }
     },
     created() {
+      for (let i = 0; i < this.pageData.length; i++) {
+        this.pageData[i] = new Array(7);
+      }
       listajaxSection().then(res => {
         this.section = res.records
       })
@@ -212,22 +357,10 @@
       this.load()
     },
     methods: {
-      Views(){
-        for (let i of this.data) {
-          switch(i.sse){
-            case "1-2节":
-              console.log(this.$refs.one_two)
-              console.log(this.$refs.one_two.childred)
-              switch (i.sw) {
-                case "周一":
-                  break;
-              }
-              break;
-          }
-        }
+      Views() {
       },
       load() {
-        service.get('/api/teacher/findSchedule', {params: this.params}).then(res => {
+        service.get('/api/teacher/findSchedule', { params: this.params }).then(res => {
           this.data = res
         }).catch(error => {
           this.loading = false
@@ -235,7 +368,7 @@
             title: '错误信息',
             message: '登录超时，请重新登录'
           })
-          this.$router.push({path: '/login'})
+          this.$router.push({ path: '/login' })
         })
       },
       sizeChange(val) {
