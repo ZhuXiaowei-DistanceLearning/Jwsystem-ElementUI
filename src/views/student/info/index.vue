@@ -15,12 +15,12 @@
           <tr>
             <TD class="trbg1">编号：</TD>
             <TD><span id="xh">{{data.id}}</span></TD>
-            <TD class="trbg1"><span id="Label1">教师证号：</span></TD>
-            <TD colSpan="2"><span id="lbl_xszh"></span></TD>
+            <TD class="trbg1"><span id="Label1">学生证号：</span></TD>
+            <TD colSpan="2"><span id="lbl_xszh">{{data.id}}</span></TD>
             <td class="trbg1">手机类型：</td>
             <td width="165"><span id="lbl_TELLX"></span></td>
             <td rowSpan="6"><img id="xszp"
-                                 src="http://b-ssl.duitang.com/uploads/item/201410/09/20141009224754_AswrQ.jpeg"
+                                 src="../../../assets/images/avatar.png"
                                  alt="照片" align="AbsMiddle" border="0" height="144" width="112"/><br>
               <span id="Label7"><b><font color="Red">建议照片大小不超过100k<br>照片像素（宽×高）为：144×172<br>照片格式为BMP/JPG/JPEG</font></b></span>
             </td>
@@ -48,9 +48,9 @@
           </tr>
           <tr>
             <TD class="trbg1">性别：</TD>
-            <TD><span id="lbl_xb">{{data.username}}</span></TD>
+            <TD><span id="lbl_xb">{{data.sex}}</span></TD>
             <TD class="trbg1">入学日期：</TD>
-            <TD colSpan="2"><span id="lbl_rxrq">20150901</span></TD>
+            <TD colSpan="2"><span id="lbl_rxrq">{{data.beginTime}}</span></TD>
             <td class="trbg1">家庭电话：
             </td>
             <td width="165"><span id="lbl_jtdh"></span></td>
@@ -59,7 +59,7 @@
             <TD class="trbg1">出生日期：</TD>
             <TD><span id="lbl_csrq">19961214</span></TD>
             <TD class="trbg1">毕业中学：</TD>
-            <TD colSpan="2"><span id="lbl_byzx">衡阳县六中</span></TD>
+            <TD colSpan="2"><span id="lbl_byzx"></span></TD>
             <td class="trbg1">父亲姓名：
             </td>
             <td width="165"><span id="lbl_fqxm"></span></td>
@@ -68,7 +68,7 @@
             <TD class="trbg1">民族：</TD>
             <TD><span id="lbl_mz">汉族</span></TD>
             <TD class="trbg1">宿舍号：</TD>
-            <TD colSpan="2"><span id="lbl_ssh">2-2-209</span></TD>
+            <TD colSpan="2"><span id="lbl_ssh">10-1-101-3</span></TD>
             <TD class="trbg1">父亲单位：</TD>
             <TD width="165"><span id="lbl_fqdw"></span></TD>
           </tr>
@@ -76,7 +76,7 @@
             <TD class="trbg1">籍贯：</TD>
             <TD><SPAN
               style="BORDER-BOTTOM: red 0px solid; BORDER-LEFT: red 0px solid; WIDTH: 18px; BORDER-TOP: red 0px solid; BORDER-RIGHT: red 0px solid">
-										</SPAN><span id="lbl_jg"></span></TD>
+										</SPAN><span id="lbl_jg">{{data.scity}}</span></TD>
             <TD class="trbg1">电子邮箱：</TD>
             <TD colSpan="2"><span id="lbl_dzyxdz">502513206@qq.com</span></TD>
             <TD class="trbg1">父亲单位邮编：</TD>
@@ -85,7 +85,7 @@
           </tr>
           <tr>
             <TD class="trbg1" height="7">政治面貌：</TD>
-            <TD height="7"><span id="lbl_zzmm">共青团员</span></TD>
+            <TD height="7"><span id="lbl_zzmm">{{data.politicalStatus}}</span></TD>
             <TD class="trbg1" height="7">联系电话：</TD>
             <TD height="7" colSpan="2"><span id="lbl_lxdh">13026667662</span></TD>
             <TD class="trbg1" height="7">母亲姓名：</TD>
@@ -94,7 +94,7 @@
           </tr>
           <tr>
             <TD class="trbg1">来源地区：</TD>
-            <TD><span id="lbl_lydq">湖南省衡阳市</span></TD>
+            <TD><span id="lbl_lydq">湖南省张家界市</span></TD>
             <TD class="trbg1">邮政编码：</TD>
             <TD colSpan="2"><span id="lbl_yzbm">421009</span></TD>
             <TD class="trbg1">母亲单位：</TD>
@@ -103,7 +103,7 @@
           </tr>
           <tr>
             <td class="trbg1">来源省：</td>
-            <td><span id="lbl_lys">湖南</span></td>
+            <td><span id="lbl_lys">{{data.scity}}</span></td>
             <TD class="trbg1">准考证号：</TD>
             <TD colSpan="2"><span id="lbl_zkzh"></span></TD>
             <TD class="trbg1">母亲单位邮编：
@@ -124,7 +124,7 @@
             </td>
             <td><span id="lbl_jkzk"></span></td>
             <TD class="trbg1">学历层次：</TD>
-            <TD colSpan="2"><span id="lbl_CC">专科</span></TD>
+            <TD colSpan="2"><span id="lbl_CC">本科</span></TD>
             <TD class="trbg1" width="241" colSpan="2"><span id="Label9">母亲单位电话或手机：</span></TD>
             <TD><span id="lbl_mqdwdh"></span></TD>
           </tr>
@@ -143,7 +143,7 @@
             <TD class="trbg1">报到号：</TD>
             <TD colSpan="2"><span id="lbl_bdh">2797</span></TD>
             <TD class="trbg1" width="241" colSpan="2">家庭所在地（/省/县）：</TD>
-            <TD><span id="lbl_jtszd">湖南省衡阳市华新开发区尚书房3栋一单元420房</span></TD>
+            <TD><span id="lbl_jtszd">{{data.address}}</span></TD>
           </tr>
           <tr>
             <TD id="TDzymc" class="trbg1">专业名称：</TD>
@@ -172,7 +172,7 @@
           <tr>
             <TD id="TDxz" class="trbg1">学制：</TD>
 
-            <TD><span id="lbl_xz">3</span></TD>
+            <TD><span id="lbl_xz">4</span></TD>
             <TD id="TDljbym" class="trbg1">录检表页码：</TD>
 
             <TD colSpan="2"><span id="lbl_LJBYM"></span></TD>
@@ -195,7 +195,7 @@
           </tr>
           <tr>
             <TD class="trbg1" height="39">当前所在级：</TD>
-            <TD height="39"><span id="lbl_dqszj">2015</span></TD>
+            <TD height="39"><span id="lbl_dqszj">2016</span></TD>
             <TD id="TDccqj" class="trbg1" height="39">火车终点站：</TD>
 
             <TD height="39" colSpan="2"><span id="lbl_ccqj"></span></TD>
@@ -227,7 +227,7 @@
 
 <script>
   import service from '../../../utils/request'
-  import { findInfo } from '@/api/teacher/info/info'
+  import { findInfo } from '@/api/student/info/info'
 
   export default {
     data() {
@@ -250,7 +250,7 @@
     },
     methods: {
       load() {
-        service.get('/api/teacher/findInfo', { params: this.params }).then(res => {
+        findInfo().then(res => {
           this.data = res
         }).catch(error => {
           this.loading = false
