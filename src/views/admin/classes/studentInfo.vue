@@ -72,12 +72,6 @@
   import { del, listajaxCollege, listajaxSpecialty, listajaxGrade } from '@/api/admin/classes/classes'
 
   export default {
-    props: {
-      show: {
-        type: Boolean,
-        required: true
-      }
-    },
     components: {
       eFrom
     },

@@ -29,15 +29,6 @@
         </el-table-column>
         <el-table-column prop="gname" label="年级" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column prop="absent" label="缺勤" show-overflow-tooltip>
-        </el-table-column>
-        <el-table-column label="操作" width="100px"
-                         align="center">
-          <template slot-scope="scope">
-            <el-button size="mini" type="primary" icon="el-icon-edit" @click="absent(scope.row)">缺勤
-            </el-button>
-          </template>
-        </el-table-column>
       </el-table>
       <!--分页组件-->
       <el-row>
@@ -62,7 +53,7 @@
   export default {
     data() {
       return {
-        dialog: false,
+        dialog:false,
         loading: true,
         total: 0,
         isAdd: false,
@@ -75,15 +66,14 @@
           offset: 1,
           limit: 10,
           keyword: null,
-          id: "",
-          sid: ""
+          id: ""
         },
         data: null
       }
     },
     methods: {
       load() {
-        service.get('/api/course/findStudentByCourseId', {params: this.params}).then(res => {
+        service.get('/api/course/findStudentByCourseId', { params: this.params }).then(res => {
           this.data = res.records
           this.loading = false
           this.currentPage = res.current
@@ -94,7 +84,7 @@
             title: '错误信息',
             message: '登录超时，请重新登录'
           })
-          this.$router.push({path: '/login'})
+          this.$router.push({ path: '/login' })
         })
       },
       sizeChange(val) {
@@ -114,8 +104,7 @@
             this.dialog = false
             done();
           })
-          .catch(_ => {
-          });
+          .catch(_ => {});
       },
       handleSelectionChange(val, row) {
         if (val.length == 0) {
@@ -131,16 +120,6 @@
           this.classesId = val[0].id
           this.classname = val[0].classname
         }
-      },
-      absent(val) {
-        this.params.sid = val.sid
-        service.post("/api/score/addAbsent", {cid: this.params.id, sid: this.params.sid}).then(res => {
-          this.$message({
-            type: "success",
-            message: "添加成功"
-          })
-          this.load()
-        })
       }
     }
   }

@@ -6,7 +6,7 @@
       <el-row>
         <el-col :span="6">
           选择时间:
-          <el-select v-model="params.sectionId" placeholder="请选择" @change="selectCollege">
+          <el-select v-model="params.sectionId" placeholder="请选择" @change="selectSection">
             <el-option
               v-for="item in section"
               :key="item.id"
@@ -41,9 +41,7 @@
         </el-col>
       </el-row>
       <div style="margin-top: 10px">
-        <el-button class="filter-item" size="mini" type="primary" icon="el-icon-zoom-in" @click="StudentInfo">查询班级学生
-        </el-button>
-        <el-button class="filter-item" size="mini" type="primary" icon="el-icon-zoom-in" @click="StudentInfo">记录考勤
+        <el-button class="filter-item" size="mini" type="primary" icon="el-icon-zoom-in" @click="selectStudent">记录考勤
         </el-button>
       </div>
     </div>
@@ -89,13 +87,6 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="100px"
-                       align="center">
-        <template slot-scope="scope">
-          <el-button size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)">编辑
-          </el-button>
-        </template>
-      </el-table-column>
     </el-table>
     <!--分页组件-->
     <el-row>
@@ -135,8 +126,7 @@
         team: [],
         week: [],
         section: [],
-        classesId: null,
-        classname: null,
+        courseId: null,
         params: {
           offset: 1,
           limit: 10,
@@ -204,25 +194,37 @@
       toQuery() {
         this.load()
       },
-      selectCollege(val) {
+      selectSection(val) {
       },
       StudentInfo() {
         this.$refs.studentForm.dialog = true
       },
       handleSelectionChange(val, row) {
         if (val.length == 0) {
-          this.classesId = null
-          this.classname = null
+          this.courseId = null
         } else if (val.length > 1) {
           this.$refs.table.clearSelection()
           this.$refs.table.toggleRowSelection(row)
           val.splice(0, val.length - 1)
-          this.classesId = val[0].id
-          this.classname = val[0].classname
+          this.courseId = val[0].id
         } else {
-          this.classesId = val[0].id
-          this.classname = val[0].classname
+          this.courseId = val[0].id
         }
+      },
+      selectStudent(){
+        if(this.courseId == null){
+          this.$message({
+            type:"error",
+            message: "请先选择一门课程"
+          })
+        }else{
+          this.$refs.studentForm.dialog = true
+          this.$refs.studentForm.params.id = this.courseId
+          this.$refs.studentForm.load()
+        }
+      },
+      addAbsent(){
+
       }
     }
   }

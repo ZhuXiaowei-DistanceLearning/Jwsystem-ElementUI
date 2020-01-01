@@ -3,13 +3,7 @@
              title="学生信息列表" width="80%">
     <div class="app-container">
       <!--工具栏-->
-      <div class="head-container">
-        <!-- 搜索 -->
-        <div style="margin-top: 10px">
-          <el-button class="filter-item" size="mini" type="success" icon="el-icon-circle-plus-outline" @click="add">新增
-          </el-button>
-        </div>
-      </div>
+      <e-form :is-add="true" ref="form" @close="load()"></e-form>
       <!--表格渲染-->
       <el-table
         ref="table"
@@ -26,25 +20,32 @@
         <el-table-column
           type="selection"
           width="55"/>
-        <el-table-column prop="classname" label="学号"/>
-        <el-table-column prop="cname" label="姓名"/>
-        <el-table-column prop="sname" label="性别" show-overflow-tooltip>
+        <el-table-column prop="sid" label="学号"/>
+        <el-table-column prop="sname" label="学生姓名"/>
+        <el-table-column prop="cname" label="所在班级" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column prop="gname" label="籍贯" show-overflow-tooltip>
+        <el-table-column prop="spname" label="所属专业" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column prop="gname" label="班级" show-overflow-tooltip>
+        <el-table-column prop="tcname" label="所属学院" show-overflow-tooltip>
         </el-table-column>
         <el-table-column prop="gname" label="年级" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column prop="gname" label="入学时间" show-overflow-tooltip>
+        <el-table-column prop="absent" label="缺勤" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column prop="gname" label="手机" show-overflow-tooltip>
+        <el-table-column prop="attendance" label="考勤分" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column prop="gname" label="身份证号" show-overflow-tooltip>
+        <el-table-column prop="usually" label="平时分" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column prop="gname" label="家庭住址" show-overflow-tooltip>
+        <el-table-column prop="exam" label="期末成绩" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column prop="gname" label="政治面貌" show-overflow-tooltip>
+        <el-table-column prop="score" label="总成绩" show-overflow-tooltip>
+        </el-table-column>
+        <el-table-column label="操作" width="100px"
+                         align="center">
+          <template slot-scope="scope">
+            <el-button size="mini" type="primary" icon="el-icon-edit" @click="addScore(scope.row)">添加成绩
+            </el-button>
+          </template>
         </el-table-column>
       </el-table>
       <!--分页组件-->
@@ -66,50 +67,35 @@
 
 <script>
   import service from '../../../utils/request'
-  import eFrom from './form'
-  import { download } from '@/api/data'
-  import { parseTime, downloadFile } from '@/utils/index'
-  import { del, listajaxCollege, listajaxSpecialty, listajaxGrade } from '@/api/admin/classes/classes'
+  import eForm from './form'
 
   export default {
-    props: {
-      show: {
-        type: Boolean,
-        required: true
-      }
-    },
     components: {
-      eFrom
+      eForm
     },
     data() {
       return {
-        dialog:false,
+        dialog: false,
         loading: true,
         total: 0,
         isAdd: false,
         college: [],
         specialty: [],
         grade: [],
-        classesId: null,
-        classname: null,
+        sid: null,
         params: {
           offset: 1,
           limit: 10,
           keyword: null,
-          collegeId: null,
-          specialtyId: null,
-          gradeId: null,
-          status: null
+          id: "",
+          sid: ""
         },
         data: null
       }
     },
-    created() {
-      // this.load()
-    },
     methods: {
       load() {
-        service.get('/api/student/pageQuery', { params: this.params }).then(res => {
+        service.get('/api/course/findStudentByCourseId', {params: this.params}).then(res => {
           this.data = res.records
           this.loading = false
           this.currentPage = res.current
@@ -120,7 +106,7 @@
             title: '错误信息',
             message: '登录超时，请重新登录'
           })
-          this.$router.push({ path: '/login' })
+          this.$router.push({path: '/login'})
         })
       },
       sizeChange(val) {
@@ -131,29 +117,8 @@
         this.params.offset = val
         this.load()
       },
-      add() {
-        this.isAdd = true
-        this.$refs.form.dialog = true
-      },
-      edit(data) {
-        this.isAdd = false
-        const _this = this.$refs.form
-        _this.form = {
-          id: data.id,
-          classname: data.classname,
-          collegeId: data.collegeId,
-          specialtyId: data.specialtyId,
-          gradeId: data.gradeId
-        }
-        _this.dialog = true
-      },
       toQuery() {
         this.load()
-      },
-      selectCollege(val) {
-        listajaxSpecialty(val).then(res => {
-          this.specialty = res
-        })
       },
       handleClose(done) {
         this.$confirm('确认关闭？')
@@ -161,22 +126,25 @@
             this.dialog = false
             done();
           })
-          .catch(_ => {});
+          .catch(_ => {
+          });
       },
       handleSelectionChange(val, row) {
         if (val.length == 0) {
-          this.classesId = null
-          this.classname = null
+          this.param.sid = null
         } else if (val.length > 1) {
           this.$refs.table.clearSelection()
           this.$refs.table.toggleRowSelection(row)
           val.splice(0, val.length - 1)
-          this.classesId = val[0].id
-          this.classname = val[0].classname
+          this.param.sid = val[0].id
         } else {
-          this.classesId = val[0].id
-          this.classname = val[0].classname
+          this.param.sid = val[0].id
         }
+      },
+      addScore(val) {
+        this.$refs.form.dialog = true
+        this.$refs.form.form["cid"] = this.params.id
+        this.$refs.form.form["sid"] = val.sid
       }
     }
   }

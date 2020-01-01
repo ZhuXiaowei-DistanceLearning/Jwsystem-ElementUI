@@ -41,7 +41,7 @@
         </el-col>
       </el-row>
       <div style="margin-top: 10px">
-        <el-button class="filter-item" size="mini" type="primary" icon="el-icon-zoom-in" @click="StudentInfo">成绩录入
+        <el-button class="filter-item" size="mini" type="primary" icon="el-icon-zoom-in" @click="addScore">成绩录入
         </el-button>
         <el-button class="filter-item" size="mini" type="primary" icon="el-icon-zoom-in" @click="StudentInfo">成绩分析
         </el-button>
@@ -74,7 +74,7 @@
       <el-table-column label="操作" width="100px"
                        align="center">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)">结课
+          <el-button size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)">申请结课
           </el-button>
         </template>
       </el-table-column>
@@ -117,8 +117,7 @@
         team: [],
         week: [],
         section: [],
-        classesId: null,
-        classname: null,
+        courseId: null,
         params: {
           offset: 1,
           limit: 10,
@@ -193,17 +192,26 @@
       },
       handleSelectionChange(val, row) {
         if (val.length == 0) {
-          this.classesId = null
-          this.classname = null
+          this.courseId = null
         } else if (val.length > 1) {
           this.$refs.table.clearSelection()
           this.$refs.table.toggleRowSelection(row)
           val.splice(0, val.length - 1)
-          this.classesId = val[0].id
-          this.classname = val[0].classname
+          this.courseId = val[0].id
         } else {
-          this.classesId = val[0].id
-          this.classname = val[0].classname
+          this.courseId = val[0].id
+        }
+      },
+      addScore(val){
+        if(this.courseId == null){
+          this.$message({
+            type:"error",
+            message: "请先选择一门课程"
+          })
+        }else{
+          this.$refs.studentForm.dialog = true
+          this.$refs.studentForm.params.id = this.courseId
+          this.$refs.studentForm.load()
         }
       }
     }

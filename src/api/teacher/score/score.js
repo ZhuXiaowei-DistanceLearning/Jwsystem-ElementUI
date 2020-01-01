@@ -30,7 +30,7 @@ export function listajaxWeek() {
 
 export function add(data) {
   return request({
-    url: 'api/classes/add',
+    url: 'api/score/addScore',
     method: 'post',
     data
   })
