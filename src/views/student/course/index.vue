@@ -89,7 +89,7 @@
 <script>
   import service from '../../../utils/request'
   import eFrom from './form'
-  import { del, listajaxSection, listajaxTeam, listajaxWeek } from '@/api/teacher/course/course'
+  import {del, listajaxSection, listajaxTeam, listajaxWeek} from '@/api/teacher/course/course'
   import studentInfo from './studentInfo'
 
   export default {
@@ -109,6 +109,7 @@
         week: [],
         section: [],
         courseId: null,
+        teacherId: null,
         params: {
           offset: 1,
           limit: 10,
@@ -135,7 +136,7 @@
     },
     methods: {
       load() {
-        service.get('/api/course/pageQuery', { params: this.params }).then(res => {
+        service.get('/api/course/pageQuery', {params: this.params}).then(res => {
           this.data = res.records
           this.loading = false
           this.currentPage = res.current
@@ -146,7 +147,7 @@
             title: '错误信息',
             message: '登录超时，请重新登录'
           })
-          this.$router.push({ path: '/login' })
+          this.$router.push({path: '/login'})
         })
       },
       sizeChange(val) {
@@ -184,38 +185,52 @@
       handleSelectionChange(val, row) {
         if (val.length == 0) {
           this.courseId = null
+          this.teacherId = null
         } else if (val.length > 1) {
           this.$refs.table.clearSelection()
           this.$refs.table.toggleRowSelection(row)
           val.splice(0, val.length - 1)
           this.courseId = val[0].id
+          this.teacherId = val[0].id
         } else {
           this.courseId = val[0].id
+          this.teacherId = val[0].id
         }
       },
-      selectStudent(){
-        if(this.courseId == null){
+      selectStudent() {
+        if (this.courseId == null) {
           this.$message({
-            type:"error",
+            type: "error",
             message: "请先选择一门课程"
           })
-        }else{
+        } else {
           this.$refs.studentForm.dialog = true
           this.$refs.studentForm.params.id = this.courseId
           this.$refs.studentForm.load()
         }
       },
-      addCourse(val){
-        if(this.courseId == null){
+      addCourse(val) {
+        if (this.courseId == null) {
           this.$message({
-            type:"warning",
-            message:"请先选择一门课程"
+            type: "warning",
+            message: "请先选择一门课程"
           })
-        }else{
-          
+        } else if (val.people >= val.totalPeople) {
+          this.$message({
+            type: "warning",
+            message: "课程人数已达上限"
+          })
+        } else {
+          service.post("/api/score/save", {"cid": this.courseId, "tid": this.teacherId}).then(res => {
+            this.$message({
+              type: "success",
+              message: "选课成功"
+            })
+          })
+          this.load()
         }
       },
-      selectCourse(){
+      selectCourse() {
 
       }
     }
