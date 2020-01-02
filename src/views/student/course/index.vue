@@ -26,22 +26,11 @@
             </el-option>
           </el-select>
         </el-col>
-        <el-col :span="8">
-          选择学期:
-          <el-select v-model="params.teamId" placeholder="请选择">
-            <el-option
-              v-for="item in team"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id">
-            </el-option>
-          </el-select>
-          <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="toQuery">搜索
-          </el-button>
-        </el-col>
       </el-row>
       <div style="margin-top: 10px">
-        <el-button class="filter-item" size="mini" type="primary" icon="el-icon-zoom-in" @click="selectStudent">记录考勤
+        <el-button class="filter-item" size="mini" type="primary" icon="el-icon-zoom-in" @click="addCourse"> 选课
+        </el-button>
+        <el-button class="filter-item" size="mini" type="primary" icon="el-icon-zoom-in" @click="selectCourse"> 已选课程
         </el-button>
       </div>
     </div>
@@ -67,26 +56,19 @@
         width="55"/>
       <el-table-column prop="name" label="课程名称" min-width="200"/>
       <el-table-column prop="classroom" label="上课教室"/>
-      <el-table-column prop="people" label="人数" show-overflow-tooltip width="60">
-      </el-table-column>
       <el-table-column prop="sname" label="上课时间" show-overflow-tooltip min-width="100">
         <template slot-scope="scope">
           {{scope.row.sw}}&nbsp; {{scope.row.sse}}
         </template>
       </el-table-column>
       <el-table-column prop="wname" label="上课周数" show-overflow-tooltip min-width="120"/>
+      <el-table-column prop="teacherName" label="上课教师" show-overflow-tooltip min-width="120"/>
+      <el-table-column prop="collegeName" label="开课学院" show-overflow-tooltip min-width="120"/>
       <el-table-column prop="nname" label="课程性质" show-overflow-tooltip min-width="100"/>
       <el-table-column prop="totalTime" label="总学时" show-overflow-tooltip width="60"/>
       <el-table-column prop="ename" label="考核方式" show-overflow-tooltip min-width="80"/>
-      <el-table-column prop="tname" label="开课学期" show-overflow-tooltip min-width="100"/>
-      <el-table-column prop="status" label="状态" show-overflow-tooltip min-width="80">
-        <template slot-scope="scope">
-          <el-tag
-            :type="scope.row.status==1?'success':'danger'"
-            disable-transitions> {{scope.row.status==1?'进行中':'已结课'}}
-          </el-tag>
-        </template>
-      </el-table-column>
+      <el-table-column prop="people" label="已选人数" show-overflow-tooltip min-width="100"/>
+      <el-table-column prop="totalPeople" label="总人数" show-overflow-tooltip min-width="100"/>
     </el-table>
     <!--分页组件-->
     <el-row>
@@ -153,7 +135,7 @@
     },
     methods: {
       load() {
-        service.get('/api/course/findCourseByteacherId', { params: this.params }).then(res => {
+        service.get('/api/course/pageQuery', { params: this.params }).then(res => {
           this.data = res.records
           this.loading = false
           this.currentPage = res.current
@@ -223,7 +205,17 @@
           this.$refs.studentForm.load()
         }
       },
-      addAbsent(){
+      addCourse(val){
+        if(this.courseId == null){
+          this.$message({
+            type:"warning",
+            message:"请先选择一门课程"
+          })
+        }else{
+          
+        }
+      },
+      selectCourse(){
 
       }
     }

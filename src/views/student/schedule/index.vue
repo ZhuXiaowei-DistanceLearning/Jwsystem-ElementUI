@@ -360,7 +360,7 @@
       Views() {
       },
       load() {
-        service.get('/api/teacher/findSchedule', { params: this.params }).then(res => {
+        service.get('/api/student/findSchedule', { params: this.params }).then(res => {
           this.data = res
         }).catch(error => {
           this.loading = false
