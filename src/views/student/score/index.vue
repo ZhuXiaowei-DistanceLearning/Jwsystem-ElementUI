@@ -67,17 +67,16 @@
       <el-table-column
         type="selection"
         width="55"/>
-      <el-table-column prop="name" label="课程名称"/>
-      <el-table-column prop="nname" label="课程性质" show-overflow-tooltip/>
-      <el-table-column prop="ename" label="考核方式" show-overflow-tooltip/>
-      <el-table-column prop="tname" label="开课学期" show-overflow-tooltip/>
-      <el-table-column label="操作" width="100px"
-                       align="center">
-        <template slot-scope="scope">
-          <el-button size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)">申请结课
-          </el-button>
-        </template>
-      </el-table-column>
+      <el-table-column prop="name" label="开课学期"/>
+      <el-table-column prop="nname" label="课程编号" show-overflow-tooltip/>
+      <el-table-column prop="ename" label="课程名称" show-overflow-tooltip/>
+      <el-table-column prop="tname" label="成绩" show-overflow-tooltip/>
+      <el-table-column prop="tname" label="学分" show-overflow-tooltip/>
+      <el-table-column prop="tname" label="总学时" show-overflow-tooltip/>
+      <el-table-column prop="tname" label="绩点" show-overflow-tooltip/>
+      <el-table-column prop="tname" label="考核方式" show-overflow-tooltip/>
+      <el-table-column prop="tname" label="课程属性" show-overflow-tooltip/>
+      <el-table-column prop="tname" label="课程性质" show-overflow-tooltip/>
     </el-table>
     <!--分页组件-->
     <el-row>
