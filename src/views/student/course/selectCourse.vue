@@ -16,33 +16,23 @@
         current-row-key="id"
         @select="handleSelectionChange"
       >
-        <el-table-column
-          type="selection"
-          width="55"/>
-        <el-table-column prop="sid" label="学号"/>
-        <el-table-column prop="sname" label="学生姓名"/>
-        <el-table-column prop="cname" label="所在班级" show-overflow-tooltip>
+        <el-table-column prop="name" label="课程名称"/>
+        <el-table-column prop="wname" label="周数"/>
+        <el-table-column prop="spname" label="上课时间" show-overflow-tooltip>
+          <template slot-scope="scope">
+            {{scope.row.sse}} {{scope.row.sw}}
+          </template>
         </el-table-column>
-        <el-table-column prop="spname" label="所属专业" show-overflow-tooltip>
+        <el-table-column prop="classroom" label="上课教师" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column prop="tcname" label="所属学院" show-overflow-tooltip>
-        </el-table-column>
-        <el-table-column prop="gname" label="年级" show-overflow-tooltip>
+        <el-table-column label="操作" width="100px"
+                         align="center">
+          <template slot-scope="scope">
+            <el-button size="mini" type="primary" icon="el-icon-remove-outline" @click="cancel(scope.row)">退选
+            </el-button>
+          </template>
         </el-table-column>
       </el-table>
-      <!--分页组件-->
-      <el-row>
-        <el-col :offset="10">
-          <el-pagination
-            :total="total"
-            :current-page="params.offset"
-            style="margin-top: 8px;"
-            :page-sizes="[10, 20, 30, 50]"
-            layout="total, prev, pager, next, sizes"
-            @size-change="sizeChange"
-            @current-change="pageChange"/>
-        </el-col>
-      </el-row>
     </div>
   </el-dialog>
 </template>
@@ -73,11 +63,9 @@
     },
     methods: {
       load() {
-        service.get('/api/course/findStudentByCourseId', { params: this.params }).then(res => {
-          this.data = res.records
+        service.get('/api/score/findSelectCourseByStudentId', { params: this.params }).then(res => {
+          this.data = res
           this.loading = false
-          this.currentPage = res.current
-          this.total = res.realTotal
         }).catch(error => {
           this.loading = false
           this.$notify({
@@ -120,6 +108,37 @@
           this.classesId = val[0].id
           this.classname = val[0].classname
         }
+      },
+      cancel(val){
+        this.$confirm('确认退选？')
+          .then(_ => {
+            service.delete("/api/score/delete",{params: {
+              cid: val.id
+            }}).then(res=>{
+              console.log(res)
+              console.log(res.status)
+              console.log(res.status == 1)
+              console.log(res.status == "1")
+              if(res.status == 1){
+                this.$message({
+                  type:"success",
+                  message: "退选成功"
+                })
+              }else{
+                this.$message({
+                  type:"error",
+                  message: "课程已退选,请勿重复点击"
+                })
+              }
+              this.load()
+            })
+          })
+          .catch(_ => {
+            this.$message({
+              type:"error",
+              message: "课程失败"
+            })
+          });
       }
     }
   }

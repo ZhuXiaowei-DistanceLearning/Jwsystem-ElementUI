@@ -38,6 +38,7 @@
     <e-from ref="form" :is-add="isAdd" @close="load()"/>
     <!--学生信息组件-->
     <student-info ref="studentForm"/>
+    <select-course ref="selectCourse"></select-course>
     <!--表格渲染-->
     <el-table
       ref="table"
@@ -91,11 +92,13 @@
   import eFrom from './form'
   import {del, listajaxSection, listajaxTeam, listajaxWeek} from '@/api/teacher/course/course'
   import studentInfo from './studentInfo'
+  import selectCourse from './selectCourse'
 
   export default {
     components: {
       eFrom,
-      studentInfo
+      studentInfo,
+      selectCourse
     },
     data() {
       return {
@@ -231,7 +234,8 @@
         }
       },
       selectCourse() {
-
+        this.$refs.selectCourse.dialog = true
+        this.$refs.selectCourse.load()
       }
     }
   }
