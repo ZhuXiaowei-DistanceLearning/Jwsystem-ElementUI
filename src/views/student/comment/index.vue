@@ -64,16 +64,16 @@
       current-row-key="id"
       @select="handleSelectionChange"
     >
-      <el-table-column prop="name" label="学年学期" width="200"/>
-      <el-table-column prop="classroom" label="评价批次" width="80"/>
-      <el-table-column prop="people" label="开始时间" show-overflow-tooltip width="60">
-      </el-table-column>
-      <el-table-column prop="sname" label="结束时间" show-overflow-tooltip width="100">
+      <el-table-column prop="tname" label="学年学期" min-width="100"/>
+      <el-table-column prop="commentType" label="评价分类" min-width="100">
         <template slot-scope="scope">
-          {{scope.row.sw}}&nbsp; {{scope.row.sse}}
+          {{scope.row.commentType == 1 ? "学生评价":""}}
         </template>
       </el-table-column>
-      <el-table-column prop="sname" label="评价分类" show-overflow-tooltip width="100">
+      <el-table-column prop="commentBatch" label="评价批次" min-width="200"/>
+      <el-table-column prop="beginTime" label="开始时间" show-overflow-tooltip min-width="100">
+      </el-table-column>
+      <el-table-column prop="endTime" label="结束时间" show-overflow-tooltip min-width="100">
       </el-table-column>
       <el-table-column label="操作" width="100px"
                        align="center">
@@ -102,7 +102,7 @@
 <script>
   import service from '../../../utils/request'
   import eFrom from './form'
-  import { del, listajaxSection, listajaxTeam, listajaxWeek } from '@/api/teacher/course/course'
+  import { pageQuery } from '@/api/student/comment/comment'
   import studentInfo from './studentInfo'
 
   export default {
@@ -112,7 +112,6 @@
     },
     data() {
       return {
-        exportUrl: 'http://localhost:8080/api/export',
         fileList: [],
         loading: true,
         total: 0,
@@ -136,20 +135,11 @@
       }
     },
     created() {
-      listajaxSection().then(res => {
-        this.section = res.records
-      })
-      listajaxTeam().then(res => {
-        this.team = res.records
-      })
-      listajaxWeek().then(res => {
-        this.week = res.records
-      })
       this.load()
     },
     methods: {
       load() {
-        service.get('/api/course/findCourseByteacherId', { params: this.params }).then(res => {
+        pageQuery().then(res => {
           this.data = res.records
           this.loading = false
           this.currentPage = res.current

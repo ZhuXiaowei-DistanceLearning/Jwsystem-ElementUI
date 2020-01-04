@@ -67,16 +67,20 @@
       <el-table-column
         type="selection"
         width="55"/>
-      <el-table-column prop="name" label="开课学期"/>
-      <el-table-column prop="nname" label="课程编号" show-overflow-tooltip/>
-      <el-table-column prop="ename" label="课程名称" show-overflow-tooltip/>
-      <el-table-column prop="tname" label="成绩" show-overflow-tooltip/>
-      <el-table-column prop="tname" label="学分" show-overflow-tooltip/>
-      <el-table-column prop="tname" label="总学时" show-overflow-tooltip/>
-      <el-table-column prop="tname" label="绩点" show-overflow-tooltip/>
-      <el-table-column prop="tname" label="考核方式" show-overflow-tooltip/>
-      <el-table-column prop="tname" label="课程属性" show-overflow-tooltip/>
-      <el-table-column prop="tname" label="课程性质" show-overflow-tooltip/>
+      <el-table-column prop="tname" label="开课学期" min-width="70"/>
+      <el-table-column prop="id" label="课程编号" show-overflow-tooltip width="70" align="center"/>
+      <el-table-column prop="name" label="课程名称" show-overflow-tooltip min-width="150"/>
+      <el-table-column prop="score" label="成绩" show-overflow-tooltip/>
+      <el-table-column prop="credit" label="学分" show-overflow-tooltip/>
+      <el-table-column prop="totalTime" label="总学时" show-overflow-tooltip/>
+      <el-table-column prop="point" label="绩点" show-overflow-tooltip/>
+      <el-table-column prop="isExam" label="考核方式" show-overflow-tooltip>
+        <template slot-scope="scope">
+          {{scope.row.isExam == 1 ?'考试':"测试"}}
+        </template>
+      </el-table-column>
+      <el-table-column prop="nname" label="课程属性" show-overflow-tooltip/>
+      <el-table-column prop="csname" label="课程性质" show-overflow-tooltip/>
     </el-table>
     <!--分页组件-->
     <el-row>
@@ -107,7 +111,6 @@
     },
     data() {
       return {
-        exportUrl: 'http://localhost:8080/api/export',
         fileList: [],
         loading: true,
         total: 0,
@@ -143,7 +146,7 @@
     },
     methods: {
       load() {
-        service.get('/api/course/findCourseByteacherId', { params: this.params }).then(res => {
+        service.get('/api/score/findStudentScore', { params: this.params }).then(res => {
           this.data = res.records
           this.loading = false
           this.currentPage = res.current
