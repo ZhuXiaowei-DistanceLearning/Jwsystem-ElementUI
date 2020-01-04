@@ -3,7 +3,7 @@
     <!--工具栏-->
     <div class="head-container">
       <div style="margin-top: 10px">
-        <el-button class="filter-item" size="mini" type="primary" icon="el-icon-zoom-in">查询班级学生
+        <el-button class="filter-item" size="mini" type="primary" icon="el-icon-zoom-in" @click="StudentInfo">查询班级学生
         </el-button>
       </div>
     </div>
@@ -20,21 +20,28 @@
       current-row-key="id"
       @select="handleSelectionChange"
     >
-      <el-table-column prop="tname" label="学年学期" min-width="100"/>
-      <el-table-column prop="commentType" label="评价分类" min-width="100">
+      <el-table-column prop="cid" label="课程编号" min-width="100"/>
+      <el-table-column prop="courseName" label="课程名称" min-width="200"/>
+      <el-table-column prop="teacherName" label="授课教师" min-width="100">
         <template slot-scope="scope">
           {{scope.row.commentType == 1 ? "学生评价":""}}
         </template>
       </el-table-column>
-      <el-table-column prop="commentBatch" label="评价批次" min-width="200"/>
-      <el-table-column prop="beginTime" label="开始时间" show-overflow-tooltip min-width="100">
+      <el-table-column prop="commentType" label="评教类别" min-width="100">
+        <template slot-scope="scope">
+          {{scope.row.commentType == 1 ? "学生评价":""}}
+        </template>
       </el-table-column>
-      <el-table-column prop="endTime" label="结束时间" show-overflow-tooltip min-width="100">
+      <el-table-column prop="remark" label="总评分" min-width="200"/>
+      <el-table-column prop="status" label="已评" show-overflow-tooltip min-width="100">
+        <template slot-scope="scope">
+          {{scope.row.status == 1 ? "已评价":"未评价"}}
+        </template>
       </el-table-column>
       <el-table-column label="操作" width="100px"
                        align="center">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" icon="el-icon-edit" @click="selectList(scope.row)">进入评价
+          <el-button size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)">进入评价
           </el-button>
         </template>
       </el-table-column>
@@ -57,7 +64,7 @@
 
 <script>
   import service from '../../../utils/request'
-  import { pageQuery } from '@/api/student/comment/comment'
+  import { listTeamComment } from '@/api/student/comment/comment'
 
   export default {
     data() {
@@ -66,23 +73,23 @@
         total: 0,
         show: false,
         isAdd: false,
-        classesId: null,
-        classname: null,
         params: {
           offset: 1,
           limit: 10,
           keyword: null,
-          status: null
+          status: null,
+          commentId:null
         },
         data: null
       }
     },
     created() {
+      this.params.commentId = this.$route.query.commentId
       this.load()
     },
     methods: {
       load() {
-        pageQuery().then(res => {
+        listTeamComment(this.params).then(res => {
           this.data = res.records
           this.loading = false
           this.currentPage = res.current
@@ -104,11 +111,26 @@
         this.params.offset = val
         this.load()
       },
+      add() {
+        this.isAdd = true
+        this.$refs.form.dialog = true
+      },
+      edit(data) {
+        this.isAdd = false
+        const _this = this.$refs.form
+        _this.form = {
+          id: data.id,
+          classname: data.classname,
+          collegeId: data.collegeId,
+          specialtyId: data.specialtyId,
+          gradeId: data.gradeId
+        }
+        _this.dialog = true
+      },
       toQuery() {
         this.load()
       },
-      selectList(val) {
-        this.$router.push({path:"teamComment",query:{"commentId":val.id}})
+      selectCollege(val) {
       },
       handleSelectionChange(val, row) {
         if (val.length == 0) {

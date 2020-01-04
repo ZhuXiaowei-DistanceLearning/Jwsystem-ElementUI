@@ -7,6 +7,14 @@ export function pageQuery() {
   })
 }
 
+export function listTeamComment(data) {
+  return request({
+    url: 'api/teamComment/pageQuery',
+    method: 'get',
+    params:data
+  })
+}
+
 export function add(data) {
   return request({
     url: 'api/classes/add',
@@ -33,4 +41,4 @@ export function edit(data) {
   })
 }
 
-export default { add, edit, del}
+export default { add, edit, del,listTeamComment}
