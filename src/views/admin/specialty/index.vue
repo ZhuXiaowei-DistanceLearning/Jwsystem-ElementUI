@@ -167,13 +167,17 @@
       add() {
         this.isAdd = true
         this.$refs.form.dialog = true
+        this.$refs.form.form['collegeId'] = this.$store.state.user.user.collegeId
       },
       edit(data) {
         this.isAdd = false
         const _this = this.$refs.form
         _this.form = {
           id: data.id,
-          name: data.name
+          name: data.name,
+          time: data.time,
+          category: data.category,
+          collegeId: data.collegeId,
         }
         _this.dialog = true
       },
