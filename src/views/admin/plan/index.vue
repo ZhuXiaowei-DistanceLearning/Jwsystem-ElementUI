@@ -1,18 +1,5 @@
 <template>
   <div class="app-container">
-    <!--工具栏-->
-    <div class="head-container">
-      <div>
-        <!-- 搜索 -->
-        <el-input
-          size="small"
-          clearable
-          placeholder="输入名称或者描述搜索"
-          style="width: 200px;"
-          class="filter-item"
-        />
-      </div>
-    </div>
     <el-row :gutter="15">
       <!-- 菜单授权 -->
       <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="7">
@@ -66,12 +53,13 @@
           </el-card>
         </el-row>
       </el-col>
-      <!--角色管理-->
+      <!--课程管理-->
       <el-col :xs="24" :sm="24" :md="16" :lg="16" :xl="17" style="margin-bottom: 10px">
         <el-card class="box-card" shadow="never">
           <div slot="header" class="clearfix">
             <span class="role-span">课程列表</span>
-            <el-button size="mini" type="primary" icon="el-icon-plus" style="margin-left: 10px" @click="add">添加课程
+            <el-button size="mini" type="primary" icon="el-icon-plus" style="margin-left: 10px" @click="addCourse"
+                       :disabled="this.planId == null ? true : false">添加课程
             </el-button>
           </div>
           <el-table
@@ -83,9 +71,14 @@
             current-row-key="id"
           >
             <el-table-column type="selection" width="55"/>
-            <el-table-column prop="name" label="名称"/>
-            <el-table-column prop="code" label="编号"/>
-            <el-table-column :show-overflow-tooltip="true" prop="description" label="描述"/>
+            <el-table-column prop="systemName" label="课程体系"/>
+            <el-table-column prop="nname" label="课程性质"/>
+            <el-table-column prop="csname" label="课程属性"/>
+            <el-table-column prop="courseId" label="课程编码" align="center"/>
+            <el-table-column prop="cname" label="课程名称" min-width="200"/>
+            <el-table-column prop="totalTime" label="总学时" align="center"/>
+            <el-table-column prop="credit" label="学分" align="center"/>
+            <el-table-column prop="coname" label="开课学院" min-width="100"/>
             <el-table-column
               label="操作"
               width="200px"
@@ -93,12 +86,7 @@
             >
               <template slot-scope="scope">
                 <el-row>
-                  <el-col :span="10">
-                    <el-button size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)">编辑
-                    </el-button>
-                  </el-col>
-                  <el-col :span="4"/>
-                  <el-col :span="10">
+                  <el-col :push="8" :span="10">
                     <el-button size="mini" type="danger" icon="el-icon-delete" @click="subDelete(scope.row.id)">删除
                     </el-button>
                   </el-col>
@@ -120,6 +108,8 @@
       </el-col>
       <!--表单组件-->
       <e-from ref="form" :is-add="isAdd" @close="loadPlan()"/>
+      <!--课程列表组件-->
+      <course-list ref="courseList" @close="loadCourse()"></course-list>
     </el-row>
   </div>
 </template>
@@ -128,12 +118,15 @@
   import '@riophae/vue-treeselect/dist/vue-treeselect.css'
   import service from '../../../utils/request'
   import eFrom from './form'
-  import {listajaxSpecialty, listajax,pageQueryPlanCourse} from '@/api/admin/plan/plan'
+  import {listajaxSpecialty, listajax, pageQueryPlanCourse,delPlanCourse} from '@/api/admin/plan/plan'
+  import courseList from './courseList'
+
   // crud交由presenter持有
   export default {
     name: 'Role',
     components: {
-      eFrom
+      eFrom,
+      courseList
     },
     data() {
       return {
@@ -147,14 +140,15 @@
           offset: 1,
           limit: 10,
           keyword: null,
-          status: null
+          status: null,
+          planId: null
         },
         specialty: [],
         plan: [],
         isAdd: false,
         loading: true,
         specialtyId: null,
-        planId: ''
+        planId: null
       }
     },
     created() {
@@ -200,29 +194,16 @@
         }
         _this.dialog = true
       },
-      handleSelectionChange(val, row) {
-        this.checkedKey = []
-        if (val.length == 0) {
-        } else if (val.length > 1) {
-          this.$refs.table.clearSelection()
-          this.$refs.table.toggleRowSelection(row)
-          this.roleId = row.id
-          val.splice(0, val.length - 1)
-        } else {
-          this.roleId = row.id
-        }
-        service.get('/api/role/findMenuByRole', {params: {'roleId': this.roleId}}).then(res => {
-          for (const i of res) {
-            if (i.pid != 0) {
-              this.checkedKey.push(i.id)
-            }
-          }
-          this.$refs.tree.setCheckedKeys(this.checkedKey)
-        })
-      },
       loadPlan() {
         listajax(this.specialtyId).then(res => {
           this.plan = res
+        })
+      },
+      loadCourse() {
+        pageQueryPlanCourse(this.params).then(res => {
+          this.courseData = res.records
+          this.params.offset = res.current
+          this.total = res.total
         })
       },
       selectSpecialty(node, key, halfNode, halfKey) {
@@ -240,14 +221,22 @@
       selectPlan(node, key, halfNode, halfKey) {
         if (key.checkedKeys.length == 0) {
           this.planId = null
-          this.plan = null
+          this.courseData = null
         } else {
-          this.$refs.tree.setCheckedKeys([node.id]);
+          this.$refs.planTree.setCheckedKeys([node.id]);
           this.planId = node.id
-          pageQueryPlanCourse(this.planId).then(res => {
-            this.courseData = res
+          this.params.planId = this.planId
+          pageQueryPlanCourse(this.params).then(res => {
+            this.courseData = res.records
+            this.params.offset = res.current
+            this.total = res.total
           })
         }
+      },
+      addCourse(val) {
+        this.$refs.courseList.dialog = true
+        this.$refs.courseList.form.planId = this.planId
+        this.$refs.courseList.load()
       },
       subDelete(id) {
         this.$confirm('确定进行此操作吗？', '提示', {
@@ -255,13 +244,13 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          del(id).then(res => {
+          delPlanCourse(id).then(res => {
             this.$notify({
               title: '成功',
               type: 'success',
               duration: 2500
             })
-            this.loadRole()
+            this.loadCourse()
           }).catch(err => {
             console.log(err.response.data.message)
           })

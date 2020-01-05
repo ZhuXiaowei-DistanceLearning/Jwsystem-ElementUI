@@ -35,13 +35,27 @@ export function listajax(specialtyId) {
   })
 }
 
-export function pageQueryPlanCourse(planId) {
+export function pageQueryPlanCourse(params) {
   return request({
     url: 'api/planCourse/pageQuery',
     method: 'get',
-    params: {
-      "planId": planId
-    }
+    params: params
+  })
+}
+
+export function listajaxCourse(params) {
+  return request({
+    url: 'api/course/listajax',
+    method: 'get',
+    params: params
+  })
+}
+
+export function addPlanCourse(data) {
+  return request({
+    url: 'api/planCourse',
+    method: 'post',
+    data
   })
 }
 
@@ -59,6 +73,15 @@ export function del(id) {
     method: 'delete',
     params: {
       roleId: id
+    }
+  })
+}
+export function delPlanCourse(id) {
+  return request({
+    url: 'api/planCourse',
+    method: 'delete',
+    params: {
+      id: id
     }
   })
 }
