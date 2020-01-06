@@ -67,7 +67,7 @@
         codeUrl: 'http://localhost:8080/kaptcha/create',
         cookiePass: '',
         loginForm: {
-          username: '1',
+          username: '3',
           password: '11',
           code: '',
           RadioButtonList1: '教务人员'
