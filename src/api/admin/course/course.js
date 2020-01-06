@@ -6,11 +6,12 @@ export function courseSystemlistajax() {
     method: 'get'
   })
 }
+
 export function findCourseBySystemId(params) {
   return request({
     url: 'api/courseSystem/findCourseBySystemId',
     method: 'get',
-    params:params
+    params: params
   })
 }
 
@@ -25,22 +26,61 @@ export function listajaxSpecialty(collegeId) {
   })
 }
 
-export function listajaxTeam(collegeId) {
+export function listajaxTeam() {
   return request({
     url: 'api/team/pageQuery',
     method: 'get',
   })
 }
 
-export function listajax(specialtyId) {
+export function listajaxWeek() {
   return request({
-    url: 'api/plan/listajax',
+    url: 'api/week/pageQuery',
     method: 'get',
-    params: {
-      "specialtyId": specialtyId
-    }
   })
 }
+
+export function listajaxSection() {
+  return request({
+    url: 'api/section/pageQuery',
+    method: 'get',
+  })
+}
+
+export function listajaxNature() {
+  return request({
+    url: 'api/nature/pageQuery',
+    method: 'get',
+  })
+}
+export function listajaxTeacher() {
+  return request({
+    url: 'api/teacher/listajax',
+    method: 'get',
+  })
+}
+
+export function listajaxCStatus() {
+  return request({
+    url: 'api/cstatus/pageQuery',
+    method: 'get',
+  })
+}
+
+export function listajaxWay() {
+  return request({
+    url: 'api/examway/pageQuery',
+    method: 'get',
+  })
+}
+
+export function listajaxCollege() {
+  return request({
+    url: 'api/college/listajax',
+    method: 'get'
+  })
+}
+
 export function addPlanCourse(data) {
   return request({
     url: 'api/planCourse',
@@ -51,7 +91,7 @@ export function addPlanCourse(data) {
 
 export function add(data) {
   return request({
-    url: 'api/plan',
+    url: 'api/course/add',
     method: 'post',
     data
   })
@@ -66,6 +106,7 @@ export function del(id) {
     }
   })
 }
+
 export function delPlanCourse(id) {
   return request({
     url: 'api/planCourse',
@@ -91,5 +132,3 @@ export function saveMenu(data) {
     data
   })
 }
-
-export default {add, edit, del, saveMenu, listajaxSpecialty, listajaxTeam}

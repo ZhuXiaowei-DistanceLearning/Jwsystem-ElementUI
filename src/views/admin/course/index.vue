@@ -31,26 +31,31 @@
           <div slot="header" class="clearfix">
             <span class="role-span">课程列表</span>
             <el-button size="mini" type="primary" icon="el-icon-plus" style="margin-left: 10px" @click="addCourse"
-                       :disabled="this.planId == null ? true : false">添加课程
+                       :disabled="this.systemId == null ? true : false">添加课程
             </el-button>
           </div>
           <el-table
             ref="table"
             highlight-current-row
             style="width: 100%;"
-            :data="courseData"
+            :data="course"
             empty-text="暂时无课程"
             current-row-key="id"
           >
-            <el-table-column type="selection" width="55"/>
-            <el-table-column prop="systemName" label="课程体系"/>
-            <el-table-column prop="nname" label="课程性质"/>
-            <el-table-column prop="csname" label="课程属性"/>
-            <el-table-column prop="courseId" label="课程编码" align="center"/>
-            <el-table-column prop="cname" label="课程名称" min-width="200"/>
-            <el-table-column prop="totalTime" label="总学时" align="center"/>
-            <el-table-column prop="credit" label="学分" align="center"/>
-            <el-table-column prop="coname" label="开课学院" min-width="100"/>
+            <el-table-column prop="id" label="课程编号" min-width="100" show-overflow-tooltip/>
+            <el-table-column prop="name" label="课程名称" min-width="200"/>
+            <el-table-column prop="classroom" label="上课教室"/>
+            <el-table-column prop="sname" label="上课时间" show-overflow-tooltip min-width="100">
+              <template slot-scope="scope">
+                {{scope.row.sw}}&nbsp; {{scope.row.sse}}
+              </template>
+            </el-table-column>
+            <el-table-column prop="wname" label="上课周数" show-overflow-tooltip min-width="120"/>
+            <el-table-column prop="teacherName" label="上课教师" show-overflow-tooltip min-width="120"/>
+            <el-table-column prop="collegeName" label="开课学院" show-overflow-tooltip min-width="120"/>
+            <el-table-column prop="nname" label="课程性质" show-overflow-tooltip min-width="100"/>
+            <el-table-column prop="totalTime" label="总学时" show-overflow-tooltip width="60"/>
+            <el-table-column prop="ename" label="考核方式" show-overflow-tooltip min-width="80"/>
             <el-table-column
               label="操作"
               width="200px"
@@ -59,7 +64,7 @@
               <template slot-scope="scope">
                 <el-row>
                   <el-col :push="8" :span="10">
-                    <el-button size="mini" type="danger" icon="el-icon-delete" @click="subDelete(scope.row.id)">删除
+                    <el-button size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)">编辑
                     </el-button>
                   </el-col>
                 </el-row>
@@ -111,7 +116,6 @@
         defaultProps: {
           label: 'name'
         },
-        courseData: [],
         params: {
           offset: 1,
           limit: 10,
@@ -120,8 +124,8 @@
           systemId: null
         },
         specialty: [],
-        plan: [],
         courseSystem: [],
+        course:[],
         isAdd: false,
         loading: true,
         systemId: null,
@@ -139,11 +143,11 @@
       },
       sizeChange(val) {
         this.params.limit = val
-        this.load()
+        this.loadCourse()
       },
       pageChange(val) {
         this.params.offset = val
-        this.load()
+        this.loadCourse()
       },
       // 保存菜单
       addPlan() {
@@ -152,41 +156,55 @@
         this.$refs.form.form['specialtyId'] = this.specialtyId
       },
       edit(data) {
+        console.log(data)
         this.isAdd = false
         const _this = this.$refs.form
         _this.form = {
           id: data.id,
           name: data.name,
-          code: data.code,
-          description: data.description
+          credit: data.credit,
+          point: data.point,
+          classroom: data.classroom,
+          totalTime: data.totalTime,
+          wayId: data.wayId,
+          natureId: data.natureId,
+          teamId: data.teamId,
+          cstatusId: data.cstatusId,
+          sectionId: data.sectionId,
+          weekId: data.weekId,
+          teacherId: data.teacherId,
+          totalPeople: data.totalPeople,
+          isExam: data.isExam
         }
         _this.dialog = true
       },
       loadCourse() {
-        pageQueryPlanCourse(this.params).then(res => {
-          this.courseData = res.records
-          this.params.offset = res.current
-          this.total = res.total
+        findCourseBySystemId(this.params).then(res => {
+          this.course = res.records
+          this.currentPage = res.current
+          this.total = res.realTotal
         })
       },
       selectCourseSystem(node, key, halfNode, halfKey) {
         if (key.checkedKeys.length == 0) {
           this.systemId = null
-          this.courseSystem = null
+          this.course = null
         } else {
           this.$refs.tree.setCheckedKeys([node.id])
           this.systemId = node.id
+          this.params.systemId = this.systemId
           findCourseBySystemId(this.params).then(res => {
-            this.courseSystem = res.records
+            this.course = res.records
             this.currentPage = res.current
             this.total = res.realTotal
           })
         }
       },
       addCourse(val) {
-        this.$refs.courseList.dialog = true
-        this.$refs.courseList.form.planId = this.planId
-        this.$refs.courseList.load()
+        this.$refs.form.dialog = true
+        this.isAdd = true
+        this.$refs.form.form['systemId'] = this.systemId
+        this.$refs.form.load()
       },
       subDelete(id) {
         this.$confirm('确定进行此操作吗？', '提示', {
