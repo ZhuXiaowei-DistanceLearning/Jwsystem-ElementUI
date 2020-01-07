@@ -74,7 +74,10 @@
       <el-table-column label="操作" width="100px"
                        align="center">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)">申请结课
+          <el-button size="mini" type="primary" icon="el-icon-edit" @click="apply(scope.row)"
+                     :disabled="(scope.row.end == 1||scope.row.end == 2) ? true : false"
+                     :loading="scope.row.end == 1 ? true : false">
+            {{endTest(scope.row.end)}}
           </el-button>
         </template>
       </el-table-column>
@@ -98,7 +101,8 @@
 <script>
   import service from '../../../utils/request'
   import eFrom from './form'
-  import { del,listajaxSection,listajaxTeam,listajaxWeek } from '@/api/teacher/course/course'
+  import { del, listajaxSection, listajaxTeam, listajaxWeek } from '@/api/teacher/course/course'
+  import { updateCourseEnd } from '@/api/teacher/score/score'
   import studentInfo from './studentInfo'
 
   export default {
@@ -108,8 +112,6 @@
     },
     data() {
       return {
-        exportUrl: 'http://localhost:8080/api/export',
-        fileList: [],
         loading: true,
         total: 0,
         show: false,
@@ -118,6 +120,7 @@
         week: [],
         section: [],
         courseId: null,
+        end:null,
         params: {
           offset: 1,
           limit: 10,
@@ -185,30 +188,73 @@
       toQuery() {
         this.load()
       },
-      selectCollege(val) {
-      },
       StudentInfo() {
         this.$refs.studentForm.dialog = true
       },
       handleSelectionChange(val, row) {
         if (val.length == 0) {
           this.courseId = null
+          this.end = null
         } else if (val.length > 1) {
           this.$refs.table.clearSelection()
           this.$refs.table.toggleRowSelection(row)
           val.splice(0, val.length - 1)
           this.courseId = val[0].id
+          this.end = val[0].end
         } else {
+          this.end = val[0].end
           this.courseId = val[0].id
         }
       },
-      addScore(val){
-        if(this.courseId == null){
+      apply(val) {
+        if (val.end == 0) {
+          val['endStatus'] = 'apply'
+        } else if (val.end == 3) {
+          val['endStatus'] = 'apply'
+        }
+        updateCourseEnd(val).then(res => {
+          if (res.status == '1') {
+            this.$message({
+              type: 'success',
+              message: '申请成功'
+            })
+            this.load()
+          }
+        }).catch(res => {
           this.$message({
-            type:"error",
-            message: "请先选择一门课程"
+            type: 'error',
+            message: '申请失败'
           })
-        }else{
+        })
+      },
+      endTest(val) {
+        switch (val) {
+          case 0:
+            return '申请结课'
+            break
+          case 1:
+            return '申请中'
+            break
+          case 2:
+            return '已结课'
+            break
+          case 3:
+            return '已拒绝'
+            break
+        }
+      },
+      addScore(val) {
+        if (this.end != 2) {
+          this.$message({
+            type: 'error',
+            message: '该课程还未结课'
+          })
+        } else if (this.courseId == null) {
+          this.$message({
+            type: 'error',
+            message: '请先选择一门课程'
+          })
+        } else {
           this.$refs.studentForm.dialog = true
           this.$refs.studentForm.params.id = this.courseId
           this.$refs.studentForm.load()

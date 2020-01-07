@@ -88,11 +88,25 @@ export function addPlanCourse(data) {
     data
   })
 }
+export function endApply() {
+  return request({
+    url: 'api/course/endApply',
+    method: 'get',
+  })
+}
 
 export function add(data) {
   return request({
     url: 'api/course/add',
     method: 'post',
+    data
+  })
+}
+
+export function updateCourseEnd(data) {
+  return request({
+    url: 'api/course/updateCourseEnd',
+    method: 'put',
     data
   })
 }

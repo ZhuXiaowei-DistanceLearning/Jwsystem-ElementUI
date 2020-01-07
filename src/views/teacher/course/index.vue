@@ -82,8 +82,8 @@
       <el-table-column prop="status" label="状态" show-overflow-tooltip min-width="80">
         <template slot-scope="scope">
           <el-tag
-            :type="scope.row.status==1?'success':'danger'"
-            disable-transitions> {{scope.row.status==1?'进行中':'已结课'}}
+            :type="scope.row.end!=2?'success':'warning'"
+            disable-transitions> {{scope.row.end==2?'已结课':'进行中'}}
           </el-tag>
         </template>
       </el-table-column>
@@ -211,19 +211,19 @@
           this.courseId = val[0].id
         }
       },
-      selectStudent(){
-        if(this.courseId == null){
+      selectStudent() {
+        if (this.courseId == null) {
           this.$message({
-            type:"error",
-            message: "请先选择一门课程"
+            type: 'error',
+            message: '请先选择一门课程'
           })
-        }else{
+        } else {
           this.$refs.studentForm.dialog = true
           this.$refs.studentForm.params.id = this.courseId
           this.$refs.studentForm.load()
         }
       },
-      addAbsent(){
+      addAbsent() {
 
       }
     }

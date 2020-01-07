@@ -27,6 +27,13 @@ export function listajaxWeek() {
     method: 'get'
   })
 }
+export function updateCourseEnd(data) {
+  return request({
+    url: 'api/course/updateCourseEnd',
+    method: 'put',
+    data
+  })
+}
 
 export function add(data) {
   return request({
@@ -53,5 +60,3 @@ export function edit(data) {
     data
   })
 }
-
-export default { add, edit, del}
