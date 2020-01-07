@@ -67,10 +67,10 @@
         codeUrl: 'http://localhost:8080/kaptcha/create',
         cookiePass: '',
         loginForm: {
-          username: '3',
+          username: '1525123701',
           password: '11',
           code: '',
-          RadioButtonList1: '教务人员'
+          RadioButtonList1: '学生'
         },
         loginRules: {
           username: [{ required: true, trigger: 'blur', message: '用户名不能为空' }],
