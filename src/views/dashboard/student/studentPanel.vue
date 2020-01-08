@@ -1,9 +1,10 @@
 <template>
   <el-row>
-    <el-col :span="16">
+    <el-col :span="14">
+      <!--row1-->
       <el-row :gutter="20">
         <el-col :span="8">
-          <el-card>
+          <el-card align="center">
             <img src="../../../assets/images/avatar.png"/>
             <div style="padding: 14px;">
               <span>姓名</span>
@@ -69,58 +70,146 @@
           </el-row>
         </el-col>
         <el-col :span="8">
-          <el-card style="width: 200px;height: 200px">
-            <el-image>
-              <div slot="error" class="image-slot">
-                <i class="el-icon-picture-outline"></i>
-              </div>
-            </el-image>
-            <div style="padding: 14px;">
-              <span>好吃的汉堡</span>
-              <div class="bottom clearfix">
-                <time class="time">{{ currentDate }}</time>
-                <el-button type="text" class="button">操作按钮</el-button>
-              </div>
-            </div>
-          </el-card>
+          <zhnl></zhnl>
         </el-col>
       </el-row>
+      <!--row2-->
+      <el-row :gutter="20" style="margin-top: 30px">
+        <el-row :gutter="10">
+          <el-col :span="5">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                课程数
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="5">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                总学时
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="5">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                到课率
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="5">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                合格率
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="4">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                奖学金
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
+        <el-row :gutter="10" style="margin-top: 10px">
+          <el-col :span="5">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                上网时间
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="5">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                缴费及欠费
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="5">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                违纪
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="5">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                心理卫生
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="4">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                校园卡余额
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
+        <el-row :gutter="10" style="margin-top: 10px">
+          <kao-qin></kao-qin>
+        </el-row>
+      </el-row>
     </el-col>
-    <el-col :span="8">
-      <el-card style="width: 200px;height: 200px">
-        <el-image>
-          <div slot="error" class="image-slot">
-            <i class="el-icon-picture-outline"></i>
-          </div>
-        </el-image>
-        <div style="padding: 14px;">
-          <span>好吃的汉堡</span>
-          <div class="bottom clearfix">
-            <time class="time">{{ currentDate }}</time>
-            <el-button type="text" class="button">操作按钮</el-button>
-          </div>
-        </div>
-      </el-card>
+    <el-col :span="10" align="center">
+        <zong-he></zong-he>
+      <div>
+        <cheng-ji></cheng-ji>
+      </div>
     </el-col>
   </el-row>
 </template>
 
 <script>
-  import { get } from '@/api/monitor/visits'
+  import zhnl from './zhnl'
+  import KaoQin from './KaoQin'
+  import ChengJi from './ChengJi'
+  import ZongHe from './ZongHe'
 
   export default {
+    components: {
+      zhnl,
+      KaoQin,
+      ChengJi,
+      ZongHe
+    },
     data() {
-      return {
-        count: { newIp: 0, newVisits: 0, recentIp: 0, recentVisits: 0 }
-      }
+      return {}
     },
     mounted() {
-      get().then(res => {
-        this.count.newIp = res.newIp
-        this.count.newVisits = res.newVisits
-        this.count.recentIp = res.recentIp
-        this.count.recentVisits = res.recentVisits
-      })
     }
   }
 </script>
@@ -128,7 +217,7 @@
 <style rel="stylesheet/scss" lang="scss" scoped>
   .top-card-middle {
     position: relative;
-    color: #77CDD6
+    color: #77CDD6;
   }
 
   .top-card-middle-1 {
@@ -136,9 +225,20 @@
     color: #E3AEA1
   }
 
+  .middle-card-middle {
+    position: relative;
+    color: #60ABD9;
+  }
+
   .top-card-content {
-    padding: 15px 10px;
-    font-size: 16px;
+    padding: 15px 5px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .middle-card-content {
+    padding: 15px 5px;
+    font-size: 24px;
     font-weight: bold;
   }
 </style>

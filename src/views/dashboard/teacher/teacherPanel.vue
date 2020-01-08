@@ -1,95 +1,244 @@
 <template>
-  <el-row :gutter="40" class="panel-group">
-    <el-col :xs="12" :sm="12" :lg="12" class="card-panel-col">
+  <el-row>
+    <el-col :span="14">
+      <!--row1-->
+      <el-row :gutter="20">
+        <el-col :span="8">
+          <el-card align="center">
+            <img src="../../../assets/images/avatar.png"/>
+            <div style="padding: 14px;">
+              <span>姓名</span>
+            </div>
+          </el-card>
+        </el-col>
+        <el-col :span="8">
+          <el-row :gutter="20">
+            <el-col :span="12">
+              <el-card class="top-card-middle">
+                <div style="position: absolute;right: 2px;top: 2px;font-size: 14px;font-weight: bold">
+                  <i style="font-size: 1.5em;" class="el-icon-user"></i>
+                </div>
+                <div align="center" class="top-card-content">
+                  <span>男</span>
+                </div>
+                <div style="position: absolute;left: 2px;bottom: 2px;font-size: 14px;">
+                  性别
+                </div>
+              </el-card>
+            </el-col>
+            <el-col :span="12">
+              <el-card class="top-card-middle">
+                <div style="position: absolute;right: 2px;top: 2px;font-size: 14px;font-weight: bold">
+                  <i style="font-size: 1.5em;" class="el-icon-notebook-2"></i>
+                </div>
+                <div align="center" class="top-card-content">
+                  <span>英语专业</span>
+                </div>
+                <div style="position: absolute;left: 2px;bottom: 2px;font-size: 14px;">
+                  专业名称
+                </div>
+              </el-card>
+            </el-col>
+          </el-row>
+          <el-row :gutter="20" style="margin-top: 10px">
+            <el-col :span="12">
+              <el-card class="top-card-middle-1">
+                <div style="position: absolute;right: 2px;top: 2px;font-size: 14px;font-weight: bold">
+                  <i style="font-size: 1.5em;" class="el-icon-user"></i>
+                </div>
+                <div align="center" class="top-card-content">
+                  <span>汉</span>
+                </div>
+                <div style="position: absolute;left: 2px;bottom: 2px;font-size: 14px;">
+                  民族
+                </div>
+              </el-card>
+            </el-col>
+            <el-col :span="12">
+              <el-card class="top-card-middle-1">
+                <div style="position: absolute;right: 2px;top: 2px;font-size: 14px;font-weight: bold">
+                  <i style="font-size: 1.5em;" class="el-icon-school"></i>
+                </div>
+                <div align="center" class="top-card-content">
+                  <span>本科</span>
+                </div>
+                <div style="position: absolute;left: 2px;bottom: 2px;font-size: 14px;">
+                  学历层次
+                </div>
+              </el-card>
+            </el-col>
+          </el-row>
+        </el-col>
+        <el-col :span="8">
+          <zhnl></zhnl>
+        </el-col>
+      </el-row>
+      <!--row2-->
+      <el-row :gutter="20" style="margin-top: 30px">
+        <el-row :gutter="10">
+          <el-col :span="5">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                课程数
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="5">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                总学时
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="5">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                到课率
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="5">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                合格率
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="4">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                奖学金
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
+        <el-row :gutter="10" style="margin-top: 10px">
+          <el-col :span="5">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                上网时间
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="5">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                缴费及欠费
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="5">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                违纪
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="5">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                心理卫生
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="4">
+            <el-card class="middle-card-middle">
+              <div align="center" class="middle-card-content">
+                <span>14</span>
+              </div>
+              <div align="center" style="color: #1f2d3d;font-size: 12px">
+                校园卡余额
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
+        <el-row :gutter="10" style="margin-top: 10px">
+          <kao-qin></kao-qin>
+        </el-row>
+      </el-row>
     </el-col>
-    <el-col :xs="12" :sm="12" :lg="12" class="card-panel-col">
+    <el-col :span="10" align="center">
+      <zong-he></zong-he>
+      <div>
+        <cheng-ji></cheng-ji>
+      </div>
     </el-col>
   </el-row>
 </template>
 
 <script>
-  import { get } from '@/api/monitor/visits'
+  import zhnl from './zhnl'
+  import KaoQin from './KaoQin'
+  import ChengJi from './ChengJi'
+  import ZongHe from './ZongHe'
+
   export default {
+    components: {
+      zhnl,
+      KaoQin,
+      ChengJi,
+      ZongHe
+    },
     data() {
-      return {
-        count: { newIp: 0, newVisits: 0, recentIp: 0, recentVisits: 0 }
-      }
+      return {}
     },
     mounted() {
-      get().then(res => {
-        this.count.newIp = res.newIp
-        this.count.newVisits = res.newVisits
-        this.count.recentIp = res.recentIp
-        this.count.recentVisits = res.recentVisits
-      })
     }
   }
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-  .panel-group {
-    margin-top: 18px;
+  .top-card-middle {
+    position: relative;
+    color: #77CDD6;
+  }
 
-    .card-panel-col {
-      margin-bottom: 32px;
-    }
+  .top-card-middle-1 {
+    position: relative;
+    color: #E3AEA1
+  }
 
-    .card-panel {
-      height: 108px;
-      font-size: 12px;
-      position: relative;
-      overflow: hidden;
-      color: #666;
-      background: #fff;
-      box-shadow: 4px 4px 40px rgba(0, 0, 0, .05);
-      border-color: rgba(0, 0, 0, .05);
+  .middle-card-middle {
+    position: relative;
+    color: #60ABD9;
+  }
 
-      .icon-people {
-        color: #40c9c6;
-      }
+  .top-card-content {
+    padding: 15px 5px;
+    font-size: 12px;
+    font-weight: bold;
+  }
 
-      .icon-message {
-        color: #36a3f7;
-      }
-
-      .icon-money {
-        color: #f4516c;
-      }
-
-      .icon-shopping {
-        color: #34bfa3
-      }
-
-      .card-panel-icon-wrapper {
-        float: left;
-        margin: 14px 0 0 14px;
-        padding: 16px;
-        transition: all 0.38s ease-out;
-        border-radius: 6px;
-      }
-
-      .card-panel-icon {
-        float: left;
-        font-size: 48px;
-      }
-
-      .card-panel-description {
-        float: right;
-        font-weight: bold;
-        margin: 26px;
-        margin-left: 0px;
-
-        .card-panel-text {
-          line-height: 18px;
-          color: rgba(0, 0, 0, 0.45);
-          font-size: 16px;
-          margin-bottom: 12px;
-        }
-
-        .card-panel-num {
-          font-size: 20px;
-        }
-      }
-    }
+  .middle-card-content {
+    padding: 15px 5px;
+    font-size: 24px;
+    font-weight: bold;
   }
 </style>

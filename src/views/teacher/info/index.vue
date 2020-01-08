@@ -13,9 +13,9 @@
         <table class="formlist" width="100%" align="center">
           <TBODY>
           <tr>
-            <TD class="trbg1">编号：</TD>
+            <TD class="trbg1">职工号：</TD>
             <TD><span id="xh">{{data.id}}</span></TD>
-            <TD class="trbg1"><span id="Label1">教师证号：</span></TD>
+            <TD class="trbg1"><span id="Label1">姓名：</span></TD>
             <TD colSpan="2"><span id="lbl_xszh"></span></TD>
             <td class="trbg1">手机类型：</td>
             <td width="165"><span id="lbl_TELLX"></span></td>
