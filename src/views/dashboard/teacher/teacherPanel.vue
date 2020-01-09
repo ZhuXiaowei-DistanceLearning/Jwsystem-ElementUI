@@ -1,195 +1,40 @@
 <template>
   <el-row>
-    <el-col :span="14">
-      <!--row1-->
-      <el-row :gutter="20">
-        <el-col :span="8">
-          <el-card align="center">
-            <img src="../../../assets/images/avatar.png"/>
-            <div style="padding: 14px;">
-              <span>姓名</span>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :span="8">
-          <el-row :gutter="20">
-            <el-col :span="12">
-              <el-card class="top-card-middle">
-                <div style="position: absolute;right: 2px;top: 2px;font-size: 14px;font-weight: bold">
-                  <i style="font-size: 1.5em;" class="el-icon-user"></i>
-                </div>
-                <div align="center" class="top-card-content">
-                  <span>男</span>
-                </div>
-                <div style="position: absolute;left: 2px;bottom: 2px;font-size: 14px;">
-                  性别
-                </div>
-              </el-card>
-            </el-col>
-            <el-col :span="12">
-              <el-card class="top-card-middle">
-                <div style="position: absolute;right: 2px;top: 2px;font-size: 14px;font-weight: bold">
-                  <i style="font-size: 1.5em;" class="el-icon-notebook-2"></i>
-                </div>
-                <div align="center" class="top-card-content">
-                  <span>英语专业</span>
-                </div>
-                <div style="position: absolute;left: 2px;bottom: 2px;font-size: 14px;">
-                  专业名称
-                </div>
-              </el-card>
-            </el-col>
-          </el-row>
-          <el-row :gutter="20" style="margin-top: 10px">
-            <el-col :span="12">
-              <el-card class="top-card-middle-1">
-                <div style="position: absolute;right: 2px;top: 2px;font-size: 14px;font-weight: bold">
-                  <i style="font-size: 1.5em;" class="el-icon-user"></i>
-                </div>
-                <div align="center" class="top-card-content">
-                  <span>汉</span>
-                </div>
-                <div style="position: absolute;left: 2px;bottom: 2px;font-size: 14px;">
-                  民族
-                </div>
-              </el-card>
-            </el-col>
-            <el-col :span="12">
-              <el-card class="top-card-middle-1">
-                <div style="position: absolute;right: 2px;top: 2px;font-size: 14px;font-weight: bold">
-                  <i style="font-size: 1.5em;" class="el-icon-school"></i>
-                </div>
-                <div align="center" class="top-card-content">
-                  <span>本科</span>
-                </div>
-                <div style="position: absolute;left: 2px;bottom: 2px;font-size: 14px;">
-                  学历层次
-                </div>
-              </el-card>
-            </el-col>
-          </el-row>
-        </el-col>
-        <el-col :span="8">
-          <zhnl></zhnl>
-        </el-col>
-      </el-row>
-      <!--row2-->
-      <el-row :gutter="20" style="margin-top: 30px">
-        <el-row :gutter="10">
-          <el-col :span="5">
-            <el-card class="middle-card-middle">
-              <div align="center" class="middle-card-content">
-                <span>14</span>
-              </div>
-              <div align="center" style="color: #1f2d3d;font-size: 12px">
-                课程数
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="5">
-            <el-card class="middle-card-middle">
-              <div align="center" class="middle-card-content">
-                <span>14</span>
-              </div>
-              <div align="center" style="color: #1f2d3d;font-size: 12px">
-                总学时
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="5">
-            <el-card class="middle-card-middle">
-              <div align="center" class="middle-card-content">
-                <span>14</span>
-              </div>
-              <div align="center" style="color: #1f2d3d;font-size: 12px">
-                到课率
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="5">
-            <el-card class="middle-card-middle">
-              <div align="center" class="middle-card-content">
-                <span>14</span>
-              </div>
-              <div align="center" style="color: #1f2d3d;font-size: 12px">
-                合格率
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="4">
-            <el-card class="middle-card-middle">
-              <div align="center" class="middle-card-content">
-                <span>14</span>
-              </div>
-              <div align="center" style="color: #1f2d3d;font-size: 12px">
-                奖学金
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
-        <el-row :gutter="10" style="margin-top: 10px">
-          <el-col :span="5">
-            <el-card class="middle-card-middle">
-              <div align="center" class="middle-card-content">
-                <span>14</span>
-              </div>
-              <div align="center" style="color: #1f2d3d;font-size: 12px">
-                上网时间
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="5">
-            <el-card class="middle-card-middle">
-              <div align="center" class="middle-card-content">
-                <span>14</span>
-              </div>
-              <div align="center" style="color: #1f2d3d;font-size: 12px">
-                缴费及欠费
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="5">
-            <el-card class="middle-card-middle">
-              <div align="center" class="middle-card-content">
-                <span>14</span>
-              </div>
-              <div align="center" style="color: #1f2d3d;font-size: 12px">
-                违纪
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="5">
-            <el-card class="middle-card-middle">
-              <div align="center" class="middle-card-content">
-                <span>14</span>
-              </div>
-              <div align="center" style="color: #1f2d3d;font-size: 12px">
-                心理卫生
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="4">
-            <el-card class="middle-card-middle">
-              <div align="center" class="middle-card-content">
-                <span>14</span>
-              </div>
-              <div align="center" style="color: #1f2d3d;font-size: 12px">
-                校园卡余额
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
-        <el-row :gutter="10" style="margin-top: 10px">
-          <kao-qin></kao-qin>
-        </el-row>
-      </el-row>
-    </el-col>
-    <el-col :span="10" align="center">
-      <zong-he></zong-he>
-      <div>
+    <el-row>
+
+      <!--评价得分-->
+      <el-col :span="8">
         <cheng-ji></cheng-ji>
-      </div>
-    </el-col>
+      </el-col>
+      <!--本学期教学评价得分前5-->
+      <!--教学任务完成情况-->
+      <!--缺勤班级前5排名-->
+      <!--课程考勤-->
+      <el-col :span="8">
+        <zong-he></zong-he>
+      </el-col>
+      <!--通知公告-->
+      <el-col :span="8">
+        <el-table
+          :data="tableData"
+          style="width: 100%">
+          <el-table-column
+            prop="date"
+            label="日期"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="name"
+            label="姓名"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="address"
+            label="地址">
+          </el-table-column>
+        </el-table>
+      </el-col>
+    </el-row>
   </el-row>
 </template>
 
@@ -207,7 +52,25 @@
       ZongHe
     },
     data() {
-      return {}
+      return {
+        tableData: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1517 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
+        }]
+      }
     },
     mounted() {
     }
