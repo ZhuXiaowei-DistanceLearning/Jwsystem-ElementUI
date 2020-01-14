@@ -1,95 +1,109 @@
 <template>
-  <el-row :gutter="40" class="panel-group">
-    <el-col :xs="12" :sm="12" :lg="12" class="card-panel-col">
-    </el-col>
-    <el-col :xs="12" :sm="12" :lg="12" class="card-panel-col">
+  <el-row>
+    <el-col>
+      <el-row>
+        <!--评价得分-->
+        <el-col :span="12">
+        </el-col>
+        <!--教学进度完成-->
+        <el-col :span="12">
+        </el-col>
+      </el-row>
+      <el-row>
+
+        <!--在校人数-->
+        <el-col :span="8">
+          <people></people>
+        </el-col>
+        <!--逃课排行榜-->
+        <el-col :span="8">
+          <exit-course></exit-course>
+        </el-col>
+        <!--通知公告-->
+        <el-col :span="8">
+          <el-table
+            :data="tableData"
+            style="width: 100%">
+            <el-table-column
+              prop="date"
+              label="日期"
+              width="180">
+            </el-table-column>
+            <el-table-column
+              prop="name"
+              label="姓名"
+              width="180">
+            </el-table-column>
+            <el-table-column
+              prop="address"
+              label="地址">
+            </el-table-column>
+          </el-table>
+        </el-col>
+      </el-row>
     </el-col>
   </el-row>
 </template>
 
 <script>
-  import { get } from '@/api/monitor/visits'
+  import ExitCourse from './ExitCourse'
+  import People from './People'
   export default {
+    components: {
+      ExitCourse,
+      People
+    },
     data() {
       return {
-        count: { newIp: 0, newVisits: 0, recentIp: 0, recentVisits: 0 }
+        tableData: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1517 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
+        }]
       }
     },
     mounted() {
-      get().then(res => {
-        this.count.newIp = res.newIp
-        this.count.newVisits = res.newVisits
-        this.count.recentIp = res.recentIp
-        this.count.recentVisits = res.recentVisits
-      })
     }
   }
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-  .panel-group {
-    margin-top: 18px;
+  .top-card-middle {
+    position: relative;
+    color: #77CDD6;
+  }
 
-    .card-panel-col {
-      margin-bottom: 32px;
-    }
+  .top-card-middle-1 {
+    position: relative;
+    color: #E3AEA1
+  }
 
-    .card-panel {
-      height: 108px;
-      font-size: 12px;
-      position: relative;
-      overflow: hidden;
-      color: #666;
-      background: #fff;
-      box-shadow: 4px 4px 40px rgba(0, 0, 0, .05);
-      border-color: rgba(0, 0, 0, .05);
+  .middle-card-middle {
+    position: relative;
+    color: #60ABD9;
+  }
 
-      .icon-people {
-        color: #40c9c6;
-      }
+  .top-card-content {
+    padding: 15px 5px;
+    font-size: 12px;
+    font-weight: bold;
+  }
 
-      .icon-message {
-        color: #36a3f7;
-      }
-
-      .icon-money {
-        color: #f4516c;
-      }
-
-      .icon-shopping {
-        color: #34bfa3
-      }
-
-      .card-panel-icon-wrapper {
-        float: left;
-        margin: 14px 0 0 14px;
-        padding: 16px;
-        transition: all 0.38s ease-out;
-        border-radius: 6px;
-      }
-
-      .card-panel-icon {
-        float: left;
-        font-size: 48px;
-      }
-
-      .card-panel-description {
-        float: right;
-        font-weight: bold;
-        margin: 26px;
-        margin-left: 0px;
-
-        .card-panel-text {
-          line-height: 18px;
-          color: rgba(0, 0, 0, 0.45);
-          font-size: 16px;
-          margin-bottom: 12px;
-        }
-
-        .card-panel-num {
-          font-size: 20px;
-        }
-      }
-    }
+  .middle-card-content {
+    padding: 15px 5px;
+    font-size: 24px;
+    font-weight: bold;
   }
 </style>

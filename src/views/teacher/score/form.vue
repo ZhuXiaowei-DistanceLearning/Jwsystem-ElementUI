@@ -44,6 +44,7 @@
           attendance: '',
           usually: '',
           exam: '',
+          point:''
         },
         rules: {
           attendance: [

@@ -1,55 +1,64 @@
 <template>
   <el-row>
-    <el-row>
+    <el-col>
+      <el-row>
+        <!--评价得分-->
+        <el-col :span="12">
+          <ping-jia></ping-jia>
+        </el-col>
+        <!--教学进度完成-->
+        <el-col :span="12">
+          <jiao-xue></jiao-xue>
+        </el-col>
+      </el-row>
+      <el-row>
 
-      <!--评价得分-->
-      <el-col :span="8">
-        <cheng-ji></cheng-ji>
-      </el-col>
-      <!--本学期教学评价得分前5-->
-      <!--教学任务完成情况-->
-      <!--缺勤班级前5排名-->
-      <!--课程考勤-->
-      <el-col :span="8">
-        <zong-he></zong-he>
-      </el-col>
-      <!--通知公告-->
-      <el-col :span="8">
-        <el-table
-          :data="tableData"
-          style="width: 100%">
-          <el-table-column
-            prop="date"
-            label="日期"
-            width="180">
-          </el-table-column>
-          <el-table-column
-            prop="name"
-            label="姓名"
-            width="180">
-          </el-table-column>
-          <el-table-column
-            prop="address"
-            label="地址">
-          </el-table-column>
-        </el-table>
-      </el-col>
-    </el-row>
+        <!--缺勤课程最多前5-->
+        <el-col :span="8">
+          <course></course>
+        </el-col>
+        <!--课程考勤-->
+        <el-col :span="8">
+          <kao-qin/>
+        </el-col>
+        <!--通知公告-->
+        <el-col :span="8">
+          <el-table
+            :data="tableData"
+            style="width: 100%">
+            <el-table-column
+              prop="date"
+              label="日期"
+              width="180">
+            </el-table-column>
+            <el-table-column
+              prop="name"
+              label="姓名"
+              width="180">
+            </el-table-column>
+            <el-table-column
+              prop="address"
+              label="地址">
+            </el-table-column>
+          </el-table>
+        </el-col>
+      </el-row>
+    </el-col>
   </el-row>
 </template>
 
 <script>
-  import zhnl from './zhnl'
   import KaoQin from './KaoQin'
-  import ChengJi from './ChengJi'
-  import ZongHe from './ZongHe'
+  import JiaoXue from './JiaoXue'
+  import PingJia from './PingJia'
+  import Course from './Course'
 
   export default {
     components: {
-      zhnl,
+      Course,
+      JiaoXue,
       KaoQin,
-      ChengJi,
-      ZongHe
+      PingJia
     },
     data() {
       return {

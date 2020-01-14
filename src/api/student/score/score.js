@@ -1,8 +1,8 @@
 import request from '@/utils/request'
 
-export function findCourseByteacherId() {
+export function findStudentScore() {
   return request({
-    url: 'api/teacher/findCourseByteacherId',
+    url: 'api/score/findStudentScore',
     method: 'get'
   })
 }
@@ -54,4 +54,4 @@ export function edit(data) {
   })
 }
 
-export default { add, edit, del}
+export default { findStudentScore}

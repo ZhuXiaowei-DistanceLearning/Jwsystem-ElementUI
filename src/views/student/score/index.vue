@@ -40,12 +40,6 @@
           </el-button>
         </el-col>
       </el-row>
-      <div style="margin-top: 10px">
-        <el-button class="filter-item" size="mini" type="primary" icon="el-icon-zoom-in" @click="addScore">成绩录入
-        </el-button>
-        <el-button class="filter-item" size="mini" type="primary" icon="el-icon-zoom-in" @click="StudentInfo">成绩分析
-        </el-button>
-      </div>
     </div>
     <!--表单组件-->
     <e-from ref="form" :is-add="isAdd" @close="load()"/>
@@ -76,7 +70,7 @@
       <el-table-column prop="point" label="绩点" show-overflow-tooltip/>
       <el-table-column prop="isExam" label="考核方式" show-overflow-tooltip>
         <template slot-scope="scope">
-          {{scope.row.isExam == 1 ?'考试':"测试"}}
+          {{scope.row.isExam == 1 ?'考试':'测试'}}
         </template>
       </el-table-column>
       <el-table-column prop="nname" label="课程属性" show-overflow-tooltip/>
@@ -99,9 +93,8 @@
 </template>
 
 <script>
-  import service from '../../../utils/request'
+  import score from '@/api/student/score/score'
   import eFrom from './form'
-  import { del,listajaxSection,listajaxTeam,listajaxWeek } from '@/api/teacher/course/course'
   import studentInfo from './studentInfo'
 
   export default {
@@ -133,20 +126,11 @@
       }
     },
     created() {
-      listajaxSection().then(res => {
-        this.section = res.records
-      })
-      listajaxTeam().then(res => {
-        this.team = res.records
-      })
-      listajaxWeek().then(res => {
-        this.week = res.records
-      })
       this.load()
     },
     methods: {
       load() {
-        service.get('/api/score/findStudentScore', { params: this.params }).then(res => {
+        score.findStudentScore({ params: this.params }).then(res => {
           this.data = res.records
           this.loading = false
           this.currentPage = res.current
@@ -186,35 +170,6 @@
       },
       toQuery() {
         this.load()
-      },
-      selectCollege(val) {
-      },
-      StudentInfo() {
-        this.$refs.studentForm.dialog = true
-      },
-      handleSelectionChange(val, row) {
-        if (val.length == 0) {
-          this.courseId = null
-        } else if (val.length > 1) {
-          this.$refs.table.clearSelection()
-          this.$refs.table.toggleRowSelection(row)
-          val.splice(0, val.length - 1)
-          this.courseId = val[0].id
-        } else {
-          this.courseId = val[0].id
-        }
-      },
-      addScore(val){
-        if(this.courseId == null){
-          this.$message({
-            type:"error",
-            message: "请先选择一门课程"
-          })
-        }else{
-          this.$refs.studentForm.dialog = true
-          this.$refs.studentForm.params.id = this.courseId
-          this.$refs.studentForm.load()
-        }
       }
     }
   }

@@ -23,7 +23,7 @@
       },
       height: {
         type: String,
-        default: '350px'
+        default: '300px'
       }
     },
     data() {
@@ -87,44 +87,66 @@
       initChart() {
         this.chart = echarts.init(this.$el, 'macarons')
         this.chart.setOption({
-          title:{
-            text:'综合能力发展模型',
-            textStyle:{
-              color:'black',
-              fontFamily:'Courier New'
-            },
-            left:'30%',
+          title: {
+            text: 'Customized Pie',
+            left: 'center',
+            top: 20,
+            textStyle: {
+              color: '#ccc'
+            }
           },
+
           tooltip: {
-            trigger: 'axis'
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%)'
           },
-          grid:{
-            containLabel: true
+
+          visualMap: {
+            show: false,
+            min: 80,
+            max: 600,
+            inRange: {
+              colorLightness: [0, 1]
+            }
           },
-          radar: [
+          series: [
             {
-              indicator: [
-                {text: '个人发展', max: 100},
-                {text: '职业发展', max: 100},
-                {text: '社会发展', max: 100},
-                {text: '学会发展', max: 100}
-              ],
+              name: '访问来源',
+              type: 'pie',
+              radius: '55%',
               center: ['50%', '50%'],
-              radius: 80
-            },
-          ],
-          series: [ {
-            type: 'radar',
-            tooltip: {
-              trigger: 'item'
-            },
-            data: [
-              {
-                value: [60, 73, 85, 40],
-                name: '综合能力发展模型'
+              data: [
+                {value: 335, name: '直接访问'},
+                {value: 310, name: '邮件营销'},
+                {value: 274, name: '联盟广告'},
+                {value: 235, name: '视频广告'},
+                {value: 400, name: '搜索引擎'}
+              ].sort(function (a, b) { return a.value - b.value; }),
+              roseType: 'radius',
+              label: {
+                color: 'rgba(255, 255, 255, 0.3)'
+              },
+              labelLine: {
+                lineStyle: {
+                  color: 'rgba(255, 255, 255, 0.3)'
+                },
+                smooth: 0.2,
+                length: 10,
+                length2: 20
+              },
+              itemStyle: {
+                color: '#c23531',
+                shadowBlur: 200,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              },
+
+              animationType: 'scale',
+              animationEasing: 'elasticOut',
+              animationDelay: function (idx) {
+                return Math.random() * 200;
               }
-            ]
-          },]
+            }
+          ]
         })
       }
     }

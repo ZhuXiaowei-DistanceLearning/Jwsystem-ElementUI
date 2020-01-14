@@ -23,7 +23,7 @@
       },
       height: {
         type: String,
-        default: '200px'
+        default: '300px'
       }
     },
     data() {
@@ -31,7 +31,29 @@
         chart: null,
         trueNum: null,
         total: null,
-        falseNum: null
+        falseNum: null,
+        data:[{
+          name: 'Apples',
+          value: 70
+        }, {
+          name: 'Strawberries',
+          value: 68
+        }, {
+          name: 'Bananas',
+          value: 48
+        }, {
+          name: 'Oranges',
+          value: 40
+        }, {
+          name: 'Pears',
+          value: 32
+        }, {
+          name: 'Pineapples',
+          value: 27
+        }, {
+          name: 'Grapes',
+          value: 18
+        }]
       }
     },
     mounted() {
@@ -42,7 +64,7 @@
         }
       }, 100)
       window.addEventListener('resize', this.__resizeHandler)
-    /*  service.get('/api/count/productIdentify').then(res => {
+      /*  service.get('/api/count/productIdentify').then(res => {
         this.trueNum = res.trueNum
         this.total = res.total
         this.falseNum = this.total - this.trueNum
@@ -65,27 +87,40 @@
       initChart() {
         this.chart = echarts.init(this.$el, 'macarons')
         this.chart.setOption({
-          tooltip: {
-            formatter: '{a} <br/>{b} : {c}%'
+          title: {
+            text: '某站点用户访问来源',
+            subtext: '纯属虚构',
+            left: 'center'
           },
-          toolbox: {
-            feature: {
-              restore: {},
-              saveAsImage: {}
-            }
+          tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%)'
+          },
+          legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
           },
           series: [
             {
-              name: '综合分数',
-              type: 'gauge',
-              title: {
-                offsetCenter: [0, '100%']
-              },
-              detail: { show: false, formatter: '{value}%' },
-              data: [{ value: 50, name: '综合得分' }],
-              pointer:{
-                show:false
-              },
+              name: '访问来源',
+              type: 'pie',
+              radius: '55%',
+              center: ['50%', '60%'],
+              data: [
+                {value: 335, name: '直接访问'},
+                {value: 310, name: '邮件营销'},
+                {value: 234, name: '联盟广告'},
+                {value: 135, name: '视频广告'},
+                {value: 1548, name: '搜索引擎'}
+              ],
+              emphasis: {
+                itemStyle: {
+                  shadowBlur: 10,
+                  shadowOffsetX: 0,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+              }
             }
           ]
         })

@@ -120,7 +120,8 @@
         week: [],
         section: [],
         courseId: null,
-        end:null,
+        end: null,
+        point: null,
         params: {
           offset: 1,
           limit: 10,
@@ -195,14 +196,17 @@
         if (val.length == 0) {
           this.courseId = null
           this.end = null
+          this.point = null
         } else if (val.length > 1) {
           this.$refs.table.clearSelection()
           this.$refs.table.toggleRowSelection(row)
           val.splice(0, val.length - 1)
           this.courseId = val[0].id
           this.end = val[0].end
+          this.point = val[0].point
         } else {
           this.end = val[0].end
+          this.point = val[0].point
           this.courseId = val[0].id
         }
       },
@@ -257,6 +261,7 @@
         } else {
           this.$refs.studentForm.dialog = true
           this.$refs.studentForm.params.id = this.courseId
+          this.$refs.studentForm.params.point = this.courseId
           this.$refs.studentForm.load()
         }
       }
