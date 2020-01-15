@@ -23,25 +23,22 @@
       <el-table-column prop="cid" label="课程编号" min-width="100"/>
       <el-table-column prop="courseName" label="课程名称" min-width="200"/>
       <el-table-column prop="teacherName" label="授课教师" min-width="100">
-        <template slot-scope="scope">
-          {{scope.row.commentType == 1 ? "学生评价":""}}
-        </template>
       </el-table-column>
       <el-table-column prop="commentType" label="评教类别" min-width="100">
         <template slot-scope="scope">
-          {{scope.row.commentType == 1 ? "学生评价":""}}
+          {{scope.row.commentType == 1 ? "理论课":""}}
         </template>
       </el-table-column>
       <el-table-column prop="remark" label="总评分" min-width="200"/>
       <el-table-column prop="status" label="已评" show-overflow-tooltip min-width="100">
         <template slot-scope="scope">
-          {{scope.row.status == 1 ? "已评价":"未评价"}}
+          {{scope.row.status == 1 ? "是":"否"}}
         </template>
       </el-table-column>
       <el-table-column label="操作" width="100px"
                        align="center">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)">进入评价
+          <el-button size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)">查看
           </el-button>
         </template>
       </el-table-column>
