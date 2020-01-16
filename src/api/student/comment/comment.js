@@ -23,6 +23,14 @@ export function add(data) {
   })
 }
 
+export function addCourseComment(data) {
+  return request({
+    url: 'api/classes/add',
+    method: 'post',
+    data
+  })
+}
+
 export function del(id) {
   return request({
     url: 'api/classes/deleteCollege',

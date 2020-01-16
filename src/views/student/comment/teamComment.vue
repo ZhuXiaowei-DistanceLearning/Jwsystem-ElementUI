@@ -2,10 +2,6 @@
   <div class="app-container">
     <!--工具栏-->
     <div class="head-container">
-      <div style="margin-top: 10px">
-        <el-button class="filter-item" size="mini" type="primary" icon="el-icon-zoom-in" @click="StudentInfo">查询班级学生
-        </el-button>
-      </div>
     </div>
     <!--表格渲染-->
     <el-table
@@ -38,11 +34,12 @@
       <el-table-column label="操作" width="100px"
                        align="center">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" icon="el-icon-edit" @click="edit(scope.row)">查看
+          <el-button size="mini" type="primary" icon="el-icon-edit" @click="comment(scope.row)">查看
           </el-button>
         </template>
       </el-table-column>
     </el-table>
+    <e-form ref="form"></e-form>
     <!--分页组件-->
     <el-row>
       <el-col :offset="10">
@@ -60,10 +57,13 @@
 </template>
 
 <script>
-  import service from '../../../utils/request'
   import { listTeamComment } from '@/api/student/comment/comment'
+  import eForm from './form'
 
   export default {
+    components:{
+      eForm
+    },
     data() {
       return {
         loading: true,
@@ -110,6 +110,9 @@
       },
       add() {
         this.isAdd = true
+        this.$refs.form.dialog = true
+      },
+      comment(val) {
         this.$refs.form.dialog = true
       },
       edit(data) {
